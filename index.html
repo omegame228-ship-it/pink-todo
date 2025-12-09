@@ -20,7 +20,6 @@
 
         * { box-sizing: border-box; }
 
-        /* พื้นหลังขยับ */
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             margin: 0;
@@ -52,7 +51,75 @@
             overflow: hidden;
         }
 
-        /* หัวใจลอย */
+        /* DARK PINK MODE */
+        body.dark-pink {
+            background: radial-gradient(circle at top, #7b294b, #3b1025, #16040e);
+            color: #ffe6f7;
+        }
+        body.dark-pink .app {
+            background: rgba(35, 10, 28, 0.96);
+            border-color: #ff8ac1;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.7);
+        }
+        body.dark-pink .header-sub { color:#f8cce6; }
+        body.dark-pink input,
+        body.dark-pink select {
+            background:#3b1025;
+            border-color:#ff8ac1;
+            color:#ffe6f7;
+        }
+        body.dark-pink input::placeholder,
+        body.dark-pink .note-input::placeholder {
+            color:#e3aacd;
+        }
+        body.dark-pink .filters {
+            background:#3b1528;
+            border-color:#ff8ac1;
+        }
+        body.dark-pink .stats {
+            background:#4d1630;
+            color:#ffd9f0;
+        }
+        body.dark-pink .pill,
+        body.dark-pink .preset-pill {
+            background:#4a1630;
+            border-color:#ff8ac1;
+            color:#ffd9f0;
+        }
+        body.dark-pink .section-title { color:#ffd9f0; }
+        body.dark-pink li {
+            background:#4a1630;
+            box-shadow:0 3px 8px rgba(0,0,0,0.45);
+        }
+        body.dark-pink .gif-box img {
+            box-shadow:0 8px 20px rgba(0,0,0,0.6);
+        }
+        body.dark-pink .modal {
+            background:#4a1635;
+            border-color:#ff8ac1;
+        }
+        body.dark-pink .modal-message { color:#ffe0f4; }
+
+        /* Theme toggle */
+        .theme-toggle {
+            position:absolute;
+            top:8px;
+            right:10px;
+            font-size:11px;
+            padding:5px 10px;
+            border-radius:999px;
+            border:1px solid #ff9acb;
+            background:#ffe4f3;
+            color:#b2185a;
+            cursor:pointer;
+        }
+        body.dark-pink .theme-toggle {
+            background:#5b1230;
+            color:#ffd9f0;
+            border-color:#ffb6e0;
+        }
+
+        /* หัวใจลอย (emoji ไม่ใช่ gif) */
         .floating-heart {
             position: absolute;
             font-size: 16px;
@@ -130,63 +197,23 @@
             50% { transform: scale(1.03); box-shadow: 0 4px 10px rgba(255, 122, 162, 0.35); }
         }
 
-        /* ปุ่มสลับธีม */
-        .theme-toggle {
-            position: absolute;
-            right: 10px;
-            top: 10px;
-            padding: 4px 10px;
-            font-size: 11px;
-            border-radius: 999px;
-            border: 1px solid #ffc4dc;
-            background: #fff0f7;
-            color: #c2185b;
-            cursor: pointer;
-        }
-
-        /* กล่อง GIF วงกลม */
+        /* GIF น่ารัก – เหลือแค่แมวตัวเดียว */
         .gif-box {
             margin-top: 8px;
             display: flex;
             justify-content: center;
         }
-
         .gif-box img {
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
             border-radius: 999px;
             object-fit: cover;
             box-shadow: 0 6px 14px rgba(0,0,0,0.15);
             animation: gifFloat 3s ease-in-out infinite alternate;
         }
-
         @keyframes gifFloat {
             0% { transform: translateY(0) scale(1); }
             100% { transform: translateY(-4px) scale(1.03); }
-        }
-
-        /* แถบ GIF สติ๊กเกอร์เล็ก */
-        .gif-strip {
-            margin-top: 6px;
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .gif-strip img {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            object-fit: cover;
-            animation: wiggle 2.8s ease-in-out infinite alternate;
-        }
-
-        .gif-strip img:nth-child(2) { animation-delay: 0.3s; }
-        .gif-strip img:nth-child(3) { animation-delay: 0.6s; }
-
-        @keyframes wiggle {
-            0% { transform: translateY(0) rotate(-2deg); }
-            100% { transform: translateY(-2px) rotate(2deg); }
         }
 
         .row {
@@ -268,7 +295,6 @@
 
         .stats strong { color: var(--pink-deep); }
 
-        /* NAV TABS */
         .nav-tabs {
             display: flex;
             gap: 6px;
@@ -299,7 +325,6 @@
             box-shadow: 0 4px 10px rgba(229,57,122,0.35);
         }
 
-        /* FILTER UI */
         .filters {
             margin-top: 8px;
             font-size: 11px;
@@ -551,6 +576,11 @@
             border-radius: 999px;
             white-space: nowrap;
         }
+        body.dark-pink .doneBtn {
+            background:#355c3c;
+            border-color:#81c784;
+            color:#e8f5e9;
+        }
 
         .deleteBtn,
         .archiveBtn,
@@ -574,7 +604,6 @@
             margin: 4px 0 0 2px;
         }
 
-        /* popup ยืนยันลบ */
         .modal-backdrop {
             position: fixed;
             inset: 0;
@@ -654,81 +683,6 @@
 
         audio { display: none; }
 
-        /* DARK MODE โทนชมพูเข้ม */
-        body.dark {
-            --pink-main: #ff4f8a;
-            --pink-soft: #4b1f35;
-            --pink-soft2: #3a1730;
-            --pink-deep: #ffb6d9;
-            --text-main: #ffe6f3;
-            --bg-gradient-1: #2b0f1c;
-            --bg-gradient-2: #4b1f35;
-            --bg-gradient-3: #6b2745;
-        }
-
-        body.dark .app {
-            background: rgba(33, 10, 26, 0.96);
-            border-color: #ff80b5;
-            box-shadow: 0 14px 34px rgba(0,0,0,0.75);
-        }
-
-        body.dark .header-sub { color: #ffcce6; }
-        body.dark .chip-today {
-            background: rgba(255,255,255,0.06);
-            color: #ffb6d9;
-        }
-
-        body.dark .theme-toggle {
-            background: #4b1f35;
-            color: #ffd6f0;
-            border-color: #ff80b5;
-        }
-
-        body.dark .stats {
-            background: rgba(255,255,255,0.06);
-            color: #ffe0f4;
-        }
-
-        body.dark .filters {
-            background: rgba(255,255,255,0.04);
-            border-color: #ff80b5;
-        }
-
-        body.dark .pill,
-        body.dark .preset-pill {
-            background: rgba(255,255,255,0.04);
-            color: #ffe0f4;
-            border-color: #ff9ac5;
-        }
-
-        body.dark .pill.selected {
-            color: #2b0f1c;
-        }
-
-        body.dark li {
-            background: rgba(255,255,255,0.04);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.6);
-        }
-
-        body.dark .note-text { color: #ffd6f0; }
-        body.dark .due-text { color: #ffc58a; }
-
-        body.dark .empty-text { color: #b58fb0; }
-
-        body.dark #clearBtn {
-            background: #4b1f35;
-            color: #ffd6f0;
-            border-color: #ff80b5;
-        }
-
-        body.dark .modal {
-            background: #4b1f35;
-            border-color: #ff80b5;
-            color: #ffe6f3;
-        }
-
-        body.dark .modal-message { color: #ffe0f4; }
-
         @media (max-width: 400px) {
             .header-title { font-size: 20px; }
             button { font-size: 12px; }
@@ -739,7 +693,7 @@
 
 <body>
 <div class="app">
-    <!-- หัวใจลอย -->
+    <!-- emoji ลอย -->
     <div class="floating-heart">💗</div>
     <div class="floating-heart">✨</div>
     <div class="floating-heart">🌸</div>
@@ -749,31 +703,22 @@
 
     <header class="header">
         <h1 class="header-title">
-            <span>🎀</span><span>OHM AND AMP</span><span>🌸</span>
+            <span>🎀</span><span>โอมและแอม</span><span>🌸</span>
         </h1>
-        <div class="header-sub">รักน้องแอมนะจ้ะ</div>
+        <div class="header-sub">รักแอมนะ</div>
         <div class="chip-today" id="todayChip">📅 วันนี้: -</div>
 
-        <!-- GIF วงกลมหลัก -->
+        <!-- เหลือ GIF แมวตัวเดียว -->
         <div class="gif-box">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZTBjMDRmMGI5NzA3Njk1YmQxZDAwODZlMGQ2Mjg4Y2Q3ZTgzYWFjMiZjdD1z/3oriO0OEd9QIDdllqo/giphy.gif" alt="cute gif">
-        </div>
-
-        <!-- แถบ GIF สติ๊กเกอร์ -->
-        <div class="gif-strip">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdTh4M2g2NHdlZ24zZnEwMWVwZDZ2aXBqd2hrZnlxNGY1b2x4Z2trZiZjdD1z/l0HlSNOxJB956qwfK/giphy.gif" alt="gif1">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjlodWswdmpkbDJmbGgzM3Z4M3phN3hsdTQ5eHc3ZTR5eGJ5bnl0MiZjdD1z/xT9IgG50Fb7Mi0prBC/giphy.gif" alt="gif2">
-            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExa2FudW8xOHd4NnM1bGRuMzZ0MWNzNzlsN3BydmlkZ3U0b3k4c2tyNyZjdD1z/l0MYt5jPR6QX5pnqM/giphy.gif" alt="gif3">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMDAwNmNhYzY2M2E3ODdmYjBlZTRkYjNiODhhMDU0OGUxNTExNTU0MiZjdD1z/MDJ9IbxxvDUQM/giphy.gif" alt="cute cat">
         </div>
     </header>
 
-    <!-- แถวใส่ชื่องาน + ปุ่มเพิ่ม -->
     <div class="row row-main">
         <input id="taskInput" type="text" placeholder="เพิ่มงานที่ต้องทำ...">
         <button id="addBtn">เพิ่ม</button>
     </div>
 
-    <!-- แถวเลือกวัน / ช่วงเวลา / ความสำคัญ / ไอคอน -->
     <div class="row">
         <select id="daySelect">
             <option value="">วัน (ไม่ระบุ)</option>
@@ -805,7 +750,6 @@
         </select>
     </div>
 
-    <!-- หมายเหตุ + กำหนดส่ง -->
     <div class="row">
         <input id="noteInput" class="note-input" type="text" placeholder="หมายเหตุ (ไม่กรอกก็ได้)...">
         <input id="dueInput" class="due-input" type="date">
@@ -813,7 +757,6 @@
 
     <div id="stats" class="stats"></div>
 
-    <!-- NAV TABS -->
     <div class="nav-tabs">
         <button class="nav-btn active" data-section="active">
             <span class="icon">⏳</span><span>งานยังไม่เสร็จ</span>
@@ -826,7 +769,6 @@
         </button>
     </div>
 
-    <!-- FILTER BAR -->
     <div class="filters">
         <div class="filter-row">
             <span class="filter-label">ลัด:</span>
@@ -919,12 +861,24 @@
     </div>
 </div>
 
+<!-- popup เสร็จสิ้น -->
+<div id="completeModal" class="modal-backdrop">
+    <div class="modal">
+        <div class="modal-title">งานนี้เสร็จแล้วใช่ไหม? ✨</div>
+        <div class="modal-message" id="completeModalMessage">
+            ยืนยันว่าคุณทำงานนี้เสร็จเรียบร้อยแล้ว
+        </div>
+        <div class="modal-actions">
+            <button class="modal-btn cancel" id="completeCancelBtn">ยังไม่เสร็จ</button>
+            <button class="modal-btn confirm" id="completeConfirmBtn">เสร็จแล้ว</button>
+        </div>
+    </div>
+</div>
+
 <script>
     let todos = JSON.parse(localStorage.getItem("todos_v8") || "[]");
     let filters = JSON.parse(localStorage.getItem("todo_filters_v1") || "null");
-    if (!filters) {
-        filters = { day: "all", session: "all", priority: "all", status: "all" };
-    }
+    if (!filters) filters = { day: "all", session: "all", priority: "all", status: "all" };
 
     const input = document.getElementById("taskInput");
     const noteInput = document.getElementById("noteInput");
@@ -952,11 +906,11 @@
     const sectionDone = document.querySelector(".section-done");
     const sectionArchive = document.querySelector(".section-archive");
 
-    const themeToggleBtn = document.getElementById("themeToggle");
-
     const soundAdd = document.getElementById("sound-add");
     const soundComplete = document.getElementById("sound-complete");
     const soundDelete = document.getElementById("sound-delete");
+
+    const themeToggle = document.getElementById("themeToggle");
 
     function playSound(audio) {
         try {
@@ -968,25 +922,24 @@
     }
 
     // THEME
-    let currentTheme = localStorage.getItem("todo_theme") || "light";
+    const savedTheme = localStorage.getItem("todo_theme") || "light";
+    if (savedTheme === "dark") document.body.classList.add("dark-pink");
+    updateThemeButton();
 
-    function setTheme(theme) {
-        if (theme === "dark") {
-            document.body.classList.add("dark");
-            themeToggleBtn.textContent = "☀ โหมดสว่าง";
-        } else {
-            document.body.classList.remove("dark");
-            themeToggleBtn.textContent = "🌙 โหมดชมพูเข้ม";
-        }
-        currentTheme = theme;
-        localStorage.setItem("todo_theme", theme);
-    }
-
-    themeToggleBtn.onclick = () => {
-        setTheme(currentTheme === "dark" ? "light" : "dark");
+    themeToggle.onclick = () => {
+        document.body.classList.toggle("dark-pink");
+        const mode = document.body.classList.contains("dark-pink") ? "dark" : "light";
+        localStorage.setItem("todo_theme", mode);
+        updateThemeButton();
     };
 
-    setTheme(currentTheme);
+    function updateThemeButton() {
+        if (document.body.classList.contains("dark-pink")) {
+            themeToggle.textContent = "🌸 โหมดชมพูสว่าง";
+        } else {
+            themeToggle.textContent = "🌙 โหมดชมพูเข้ม";
+        }
+    }
 
     // DELETE MODAL
     const deleteModal = document.getElementById("deleteModal");
@@ -1000,17 +953,12 @@
         deleteModalMessage.textContent = `คุณต้องการลบงานนี้จริง ๆ ใช่ไหม: "${text}"`;
         deleteModal.classList.add("show");
     }
-
     function closeDeleteModal() {
         deleteModal.classList.remove("show");
         deleteTargetIndex = null;
     }
-
     deleteCancelBtn.onclick = closeDeleteModal;
-    deleteModal.onclick = (e) => {
-        if (e.target === deleteModal) closeDeleteModal();
-    };
-
+    deleteModal.onclick = e => { if (e.target === deleteModal) closeDeleteModal(); };
     deleteConfirmBtn.onclick = () => {
         if (deleteTargetIndex !== null && todos[deleteTargetIndex]) {
             todos.splice(deleteTargetIndex, 1);
@@ -1021,13 +969,43 @@
         }
     };
 
-    function saveTodos() {
-        localStorage.setItem("todos_v8", JSON.stringify(todos));
-    }
+    // COMPLETE MODAL
+    const completeModal = document.getElementById("completeModal");
+    const completeCancelBtn = document.getElementById("completeCancelBtn");
+    const completeConfirmBtn = document.getElementById("completeConfirmBtn");
+    const completeModalMessage = document.getElementById("completeModalMessage");
+    let completeTargetIndex = null;
 
-    function saveFilters() {
-        localStorage.setItem("todo_filters_v1", JSON.stringify(filters));
+    function openCompleteModal(index, text, isDone) {
+        completeTargetIndex = index;
+        if (isDone) {
+            completeModalMessage.textContent = `ต้องการยกเลิกสถานะเสร็จของงานนี้ไหม: "${text}"`;
+            completeConfirmBtn.textContent = "ยกเลิกเสร็จ";
+        } else {
+            completeModalMessage.textContent = `งานนี้เสร็จเรียบร้อยแล้วใช่ไหม: "${text}"`;
+            completeConfirmBtn.textContent = "เสร็จแล้ว";
+        }
+        completeModal.classList.add("show");
     }
+    function closeCompleteModal() {
+        completeModal.classList.remove("show");
+        completeTargetIndex = null;
+    }
+    completeCancelBtn.onclick = closeCompleteModal;
+    completeModal.onclick = e => { if (e.target === completeModal) closeCompleteModal(); };
+    completeConfirmBtn.onclick = () => {
+        if (completeTargetIndex !== null && todos[completeTargetIndex]) {
+            const item = todos[completeTargetIndex];
+            item.done = !item.done;
+            saveTodos();
+            playSound(soundComplete);
+            closeCompleteModal();
+            render();
+        }
+    };
+
+    function saveTodos() { localStorage.setItem("todos_v8", JSON.stringify(todos)); }
+    function saveFilters() { localStorage.setItem("todo_filters_v1", JSON.stringify(filters)); }
 
     function getTodayInfo() {
         const now = new Date();
@@ -1042,7 +1020,6 @@
         const session = hour < 12 ? "เช้า" : "บ่าย";
         return { day: dayName, session: session };
     }
-
     function getTodayDateStr() {
         const d = new Date();
         return d.toISOString().slice(0, 10);
@@ -1176,10 +1153,7 @@
             btn.classList.toggle("active", btn.dataset.section === name);
         });
     }
-
-    navBtns.forEach(btn => {
-        btn.onclick = () => showSection(btn.dataset.section);
-    });
+    navBtns.forEach(btn => { btn.onclick = () => showSection(btn.dataset.section); });
 
     function render() {
         listActive.innerHTML = "";
@@ -1194,7 +1168,6 @@
 
         const activeList = sortedFiltered.filter(t => !t.done);
         const doneList = sortedFiltered.filter(t => t.done);
-
         const todayStr = getTodayDateStr();
 
         function renderListWithDayDividers(list, ulElement) {
@@ -1307,14 +1280,10 @@
                 doneBtn.className = "doneBtn";
                 doneBtn.textContent = item.done ? "ยกเลิกเสร็จ" : "เสร็จสิ้น";
                 doneBtn.onclick = () => {
-                    const msg = item.done
-                        ? "ต้องการยกเลิกสถานะเสร็จสิ้นของงานนี้ไหม?"
-                        : "ทำเครื่องหมายว่างานนี้เสร็จแล้วใช่ไหม?";
-                    if (!confirm(msg)) return;
-                    item.done = !item.done;
-                    saveTodos();
-                    playSound(soundComplete);
-                    render();
+                    const idx = todos.indexOf(item);
+                    if (idx !== -1) {
+                        openCompleteModal(idx, item.text, item.done);
+                    }
                 };
                 btnGroup.appendChild(doneBtn);
 
@@ -1333,9 +1302,7 @@
                 deleteBtn.textContent = "ลบ";
                 deleteBtn.onclick = () => {
                     const idx = todos.indexOf(item);
-                    if (idx !== -1) {
-                        openDeleteModal(idx, item.text);
-                    }
+                    if (idx !== -1) openDeleteModal(idx, item.text);
                 };
                 btnGroup.appendChild(deleteBtn);
 
@@ -1443,9 +1410,7 @@
             deleteBtn.textContent = "ลบ";
             deleteBtn.onclick = () => {
                 const idx = todos.indexOf(item);
-                if (idx !== -1) {
-                    openDeleteModal(idx, item.text);
-                }
+                if (idx !== -1) openDeleteModal(idx, item.text);
             };
             btnGroup.appendChild(deleteBtn);
 
@@ -1475,16 +1440,9 @@
         const icon = iconSelect.value || "🎀";
 
         todos.push({
-            text,
-            note,
-            icon,
-            day,
-            session,
-            priority,
-            dueDate,
-            done: false,
-            favorite: false,
-            archived: false
+            text, note, icon, day, session,
+            priority, dueDate,
+            done: false, favorite: false, archived: false
         });
 
         input.value = "";
