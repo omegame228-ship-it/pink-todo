@@ -130,7 +130,21 @@
             50% { transform: scale(1.03); box-shadow: 0 4px 10px rgba(255, 122, 162, 0.35); }
         }
 
-        /* กล่อง GIF ดุ๊กดิ๊ก */
+        /* ปุ่มสลับธีม */
+        .theme-toggle {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            padding: 4px 10px;
+            font-size: 11px;
+            border-radius: 999px;
+            border: 1px solid #ffc4dc;
+            background: #fff0f7;
+            color: #c2185b;
+            cursor: pointer;
+        }
+
+        /* กล่อง GIF วงกลม */
         .gif-box {
             margin-top: 8px;
             display: flex;
@@ -149,6 +163,30 @@
         @keyframes gifFloat {
             0% { transform: translateY(0) scale(1); }
             100% { transform: translateY(-4px) scale(1.03); }
+        }
+
+        /* แถบ GIF สติ๊กเกอร์เล็ก */
+        .gif-strip {
+            margin-top: 6px;
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .gif-strip img {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            object-fit: cover;
+            animation: wiggle 2.8s ease-in-out infinite alternate;
+        }
+
+        .gif-strip img:nth-child(2) { animation-delay: 0.3s; }
+        .gif-strip img:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes wiggle {
+            0% { transform: translateY(0) rotate(-2deg); }
+            100% { transform: translateY(-2px) rotate(2deg); }
         }
 
         .row {
@@ -616,6 +654,81 @@
 
         audio { display: none; }
 
+        /* DARK MODE โทนชมพูเข้ม */
+        body.dark {
+            --pink-main: #ff4f8a;
+            --pink-soft: #4b1f35;
+            --pink-soft2: #3a1730;
+            --pink-deep: #ffb6d9;
+            --text-main: #ffe6f3;
+            --bg-gradient-1: #2b0f1c;
+            --bg-gradient-2: #4b1f35;
+            --bg-gradient-3: #6b2745;
+        }
+
+        body.dark .app {
+            background: rgba(33, 10, 26, 0.96);
+            border-color: #ff80b5;
+            box-shadow: 0 14px 34px rgba(0,0,0,0.75);
+        }
+
+        body.dark .header-sub { color: #ffcce6; }
+        body.dark .chip-today {
+            background: rgba(255,255,255,0.06);
+            color: #ffb6d9;
+        }
+
+        body.dark .theme-toggle {
+            background: #4b1f35;
+            color: #ffd6f0;
+            border-color: #ff80b5;
+        }
+
+        body.dark .stats {
+            background: rgba(255,255,255,0.06);
+            color: #ffe0f4;
+        }
+
+        body.dark .filters {
+            background: rgba(255,255,255,0.04);
+            border-color: #ff80b5;
+        }
+
+        body.dark .pill,
+        body.dark .preset-pill {
+            background: rgba(255,255,255,0.04);
+            color: #ffe0f4;
+            border-color: #ff9ac5;
+        }
+
+        body.dark .pill.selected {
+            color: #2b0f1c;
+        }
+
+        body.dark li {
+            background: rgba(255,255,255,0.04);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.6);
+        }
+
+        body.dark .note-text { color: #ffd6f0; }
+        body.dark .due-text { color: #ffc58a; }
+
+        body.dark .empty-text { color: #b58fb0; }
+
+        body.dark #clearBtn {
+            background: #4b1f35;
+            color: #ffd6f0;
+            border-color: #ff80b5;
+        }
+
+        body.dark .modal {
+            background: #4b1f35;
+            border-color: #ff80b5;
+            color: #ffe6f3;
+        }
+
+        body.dark .modal-message { color: #ffe0f4; }
+
         @media (max-width: 400px) {
             .header-title { font-size: 20px; }
             button { font-size: 12px; }
@@ -631,16 +744,26 @@
     <div class="floating-heart">✨</div>
     <div class="floating-heart">🌸</div>
 
+    <!-- ปุ่มสลับธีม -->
+    <button id="themeToggle" class="theme-toggle">🌙 โหมดชมพูเข้ม</button>
+
     <header class="header">
         <h1 class="header-title">
-            <span>🎀</span><span>Pink To-Do</span><span>🌸</span>
+            <span>🎀</span><span>OHM AND AMP</span><span>🌸</span>
         </h1>
-        <div class="header-sub">จัดตารางงานน่ารัก ๆ ของคุณเอง</div>
+        <div class="header-sub">รักน้องแอมนะจ้ะ</div>
         <div class="chip-today" id="todayChip">📅 วันนี้: -</div>
 
-        <!-- GIF น่ารัก ๆ (เปลี่ยนลิงก์ได้ตามใจ) -->
+        <!-- GIF วงกลมหลัก -->
         <div class="gif-box">
             <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZTBjMDRmMGI5NzA3Njk1YmQxZDAwODZlMGQ2Mjg4Y2Q3ZTgzYWFjMiZjdD1z/3oriO0OEd9QIDdllqo/giphy.gif" alt="cute gif">
+        </div>
+
+        <!-- แถบ GIF สติ๊กเกอร์ -->
+        <div class="gif-strip">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExdTh4M2g2NHdlZ24zZnEwMWVwZDZ2aXBqd2hrZnlxNGY1b2x4Z2trZiZjdD1z/l0HlSNOxJB956qwfK/giphy.gif" alt="gif1">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjlodWswdmpkbDJmbGgzM3Z4M3phN3hsdTQ5eHc3ZTR5eGJ5bnl0MiZjdD1z/xT9IgG50Fb7Mi0prBC/giphy.gif" alt="gif2">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExa2FudW8xOHd4NnM1bGRuMzZ0MWNzNzlsN3BydmlkZ3U0b3k4c2tyNyZjdD1z/l0MYt5jPR6QX5pnqM/giphy.gif" alt="gif3">
         </div>
     </header>
 
@@ -829,6 +952,8 @@
     const sectionDone = document.querySelector(".section-done");
     const sectionArchive = document.querySelector(".section-archive");
 
+    const themeToggleBtn = document.getElementById("themeToggle");
+
     const soundAdd = document.getElementById("sound-add");
     const soundComplete = document.getElementById("sound-complete");
     const soundDelete = document.getElementById("sound-delete");
@@ -842,6 +967,28 @@
         } catch (e) {}
     }
 
+    // THEME
+    let currentTheme = localStorage.getItem("todo_theme") || "light";
+
+    function setTheme(theme) {
+        if (theme === "dark") {
+            document.body.classList.add("dark");
+            themeToggleBtn.textContent = "☀ โหมดสว่าง";
+        } else {
+            document.body.classList.remove("dark");
+            themeToggleBtn.textContent = "🌙 โหมดชมพูเข้ม";
+        }
+        currentTheme = theme;
+        localStorage.setItem("todo_theme", theme);
+    }
+
+    themeToggleBtn.onclick = () => {
+        setTheme(currentTheme === "dark" ? "light" : "dark");
+    };
+
+    setTheme(currentTheme);
+
+    // DELETE MODAL
     const deleteModal = document.getElementById("deleteModal");
     const deleteCancelBtn = document.getElementById("deleteCancelBtn");
     const deleteConfirmBtn = document.getElementById("deleteConfirmBtn");
@@ -1160,6 +1307,10 @@
                 doneBtn.className = "doneBtn";
                 doneBtn.textContent = item.done ? "ยกเลิกเสร็จ" : "เสร็จสิ้น";
                 doneBtn.onclick = () => {
+                    const msg = item.done
+                        ? "ต้องการยกเลิกสถานะเสร็จสิ้นของงานนี้ไหม?"
+                        : "ทำเครื่องหมายว่างานนี้เสร็จแล้วใช่ไหม?";
+                    if (!confirm(msg)) return;
                     item.done = !item.done;
                     saveTodos();
                     playSound(soundComplete);
