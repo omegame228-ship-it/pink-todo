@@ -18,9 +18,7 @@
             --bg-gradient-3: #fdfbff;
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         /* พื้นหลังขยับ */
         body {
@@ -89,15 +87,22 @@
             align-items: center;
             padding: 6px 14px;
             border-radius: 999px;
-            background: linear-gradient(135deg, #ffe6f1, #fff);
+            background: linear-gradient(120deg,#ffe6f1,#ffffff,#ffd1e3);
+            background-size: 200% 200%;
             box-shadow: 0 6px 14px rgba(255, 122, 162, 0.25);
-            animation: titlePop 1s ease-out;
+            animation: titlePop 1s ease-out, shine 10s linear infinite;
         }
 
         @keyframes titlePop {
             0% { transform: translateY(-10px) scale(0.9); opacity: 0; }
             60% { transform: translateY(0) scale(1.03); opacity: 1; }
             100% { transform: translateY(0) scale(1); }
+        }
+
+        @keyframes shine {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         .header-sub {
@@ -125,6 +130,27 @@
             50% { transform: scale(1.03); box-shadow: 0 4px 10px rgba(255, 122, 162, 0.35); }
         }
 
+        /* กล่อง GIF ดุ๊กดิ๊ก */
+        .gif-box {
+            margin-top: 8px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .gif-box img {
+            width: 80px;
+            height: 80px;
+            border-radius: 999px;
+            object-fit: cover;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+            animation: gifFloat 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes gifFloat {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-4px) scale(1.03); }
+        }
+
         .row {
             display: flex;
             gap: 8px;
@@ -148,9 +174,7 @@
             transform: translateY(-1px);
         }
 
-        .row-main input {
-            flex: 1;
-        }
+        .row-main input { flex: 1; }
 
         button {
             border-radius: 999px;
@@ -188,13 +212,8 @@
             border: 1px solid #ffc4d7;
         }
 
-        .note-input {
-            flex: 1;
-        }
-
-        .due-input {
-            width: 150px;
-        }
+        .note-input { flex: 1; }
+        .due-input { width: 150px; }
 
         .stats {
             margin-top: 6px;
@@ -209,9 +228,7 @@
             animation: fadeIn 0.6s ease-out;
         }
 
-        .stats strong {
-            color: var(--pink-deep);
-        }
+        .stats strong { color: var(--pink-deep); }
 
         /* NAV TABS */
         .nav-tabs {
@@ -235,9 +252,7 @@
             gap: 4px;
         }
 
-        .nav-btn span.icon {
-            font-size: 14px;
-        }
+        .nav-btn span.icon { font-size: 14px; }
 
         .nav-btn.active {
             background: linear-gradient(135deg, var(--pink-main), var(--pink-deep));
@@ -296,9 +311,7 @@
             font-size: 11px;
         }
 
-        .preset-pill:hover {
-            opacity: 0.95;
-        }
+        .preset-pill:hover { opacity: 0.95; }
 
         .filter-chips {
             margin-top: 6px;
@@ -334,10 +347,7 @@
             color: #777;
         }
 
-        .sections {
-            margin-top: 10px;
-            position: relative;
-        }
+        .sections { margin-top: 10px; position: relative; }
 
         .section {
             display: none;
@@ -363,15 +373,9 @@
             color: #555;
         }
 
-        .section-title span.icon {
-            font-size: 15px;
-        }
+        .section-title span.icon { font-size: 15px; }
 
-        ul {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
+        ul { margin: 0; padding: 0; list-style: none; }
 
         .day-divider {
             margin-top: 6px;
@@ -415,13 +419,9 @@
             transition: opacity 0.25s;
         }
 
-        li:hover::after {
-            opacity: 1;
-        }
+        li:hover::after { opacity: 1; }
 
-        li.high-priority {
-            border-left-color: var(--red);
-        }
+        li.high-priority { border-left-color: var(--red); }
 
         li.overdue {
             border-left-color: #ff9800;
@@ -433,10 +433,7 @@
             background: #fff8e1;
         }
 
-        .task-content {
-            flex: 1;
-            margin-right: 8px;
-        }
+        .task-content { flex: 1; margin-right: 8px; }
 
         .task-header-line {
             display: flex;
@@ -444,10 +441,7 @@
             gap: 4px;
         }
 
-        .task-icon {
-            font-size: 18px;
-            flex-shrink: 0;
-        }
+        .task-icon { font-size: 18px; flex-shrink: 0; }
 
         .task-text {
             display: block;
@@ -482,10 +476,7 @@
             margin-top: 2px;
         }
 
-        .done {
-            text-decoration: line-through;
-            color: #999;
-        }
+        .done { text-decoration: line-through; color: #999; }
 
         .tags {
             margin-top: 4px;
@@ -513,6 +504,16 @@
             gap: 4px;
         }
 
+        .doneBtn {
+            background: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            color: #2e7d32;
+            font-size: 11px;
+            padding: 5px 8px;
+            border-radius: 999px;
+            white-space: nowrap;
+        }
+
         .deleteBtn,
         .archiveBtn,
         .restoreBtn {
@@ -535,7 +536,7 @@
             margin: 4px 0 0 2px;
         }
 
-        /* popup ยืนยันลบน่ารัก ๆ */
+        /* popup ยืนยันลบ */
         .modal-backdrop {
             position: fixed;
             inset: 0;
@@ -613,7 +614,6 @@
             box-shadow: 0 3px 8px rgba(229,57,122,0.4);
         }
 
-        /* เสียง / เล็กๆ น้อยๆ */
         audio { display: none; }
 
         @media (max-width: 400px) {
@@ -636,8 +636,11 @@
             <span>🎀</span><span>Pink To-Do</span><span>🌸</span>
         </h1>
         <div class="header-sub">จัดตารางงานน่ารัก ๆ ของคุณเอง</div>
-        <div class="chip-today" id="todayChip">
-            📅 วันนี้: -
+        <div class="chip-today" id="todayChip">📅 วันนี้: -</div>
+
+        <!-- GIF น่ารัก ๆ (เปลี่ยนลิงก์ได้ตามใจ) -->
+        <div class="gif-box">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExZTBjMDRmMGI5NzA3Njk1YmQxZDAwODZlMGQ2Mjg4Y2Q3ZTgzYWFjMiZjdD1z/3oriO0OEd9QIDdllqo/giphy.gif" alt="cute gif">
         </div>
     </header>
 
@@ -702,7 +705,6 @@
 
     <!-- FILTER BAR -->
     <div class="filters">
-        <!-- Preset filters -->
         <div class="filter-row">
             <span class="filter-label">ลัด:</span>
             <button class="preset-pill" data-preset="today">วันนี้</button>
@@ -711,7 +713,6 @@
             <button class="preset-pill" data-preset="today-high">สำคัญมากวันนี้</button>
         </div>
 
-        <!-- Day filter -->
         <div class="filter-row">
             <span class="filter-label">วัน:</span>
             <button class="pill" data-filter-day="all">ทั้งหมด</button>
@@ -722,7 +723,6 @@
             <button class="pill" data-filter-day="ศุกร์">ศ</button>
         </div>
 
-        <!-- Session + Priority -->
         <div class="filter-row">
             <span class="filter-label">เวลา:</span>
             <button class="pill" data-filter-session="all">ทั้งหมด</button>
@@ -735,16 +735,13 @@
             <button class="pill" data-filter-priority="low">น้อย</button>
         </div>
 
-        <!-- Status filter -->
         <div class="filter-row">
             <span class="filter-label">สถานะ:</span>
             <button class="pill" data-filter-status="all">ทั้งหมด</button>
             <button class="pill" data-filter-status="active">ยังไม่เสร็จ</button>
             <button class="pill" data-filter-status="done">เสร็จแล้ว</button>
 
-            <button id="clearFiltersBtn" class="pill" style="margin-left:auto;">
-                ล้างฟิลเตอร์
-            </button>
+            <button id="clearFiltersBtn" class="pill" style="margin-left:auto;">ล้างฟิลเตอร์</button>
         </div>
 
         <div id="filterChips" class="filter-chips"></div>
@@ -754,7 +751,6 @@
     <button id="clearBtn">ลบงานทั้งหมด</button>
 
     <div class="sections">
-        <!-- SECTION: ACTIVE -->
         <div class="section section-active active-section">
             <div class="section-title">
                 <span class="icon">⏳</span><span>งานที่ยังไม่เสร็จ</span>
@@ -763,7 +759,6 @@
             <div id="emptyActive" class="empty-text" style="display:none;">ยังไม่มีงานค้างอยู่ ✨</div>
         </div>
 
-        <!-- SECTION: DONE -->
         <div class="section section-done">
             <div class="section-title">
                 <span class="icon">✅</span><span>งานที่เสร็จแล้ว</span>
@@ -772,7 +767,6 @@
             <div id="emptyDone" class="empty-text" style="display:none;">ยังไม่มีงานที่เสร็จแล้ว</div>
         </div>
 
-        <!-- SECTION: ARCHIVE -->
         <div class="section section-archive">
             <div class="section-title">
                 <span class="icon">📦</span><span>งานที่จัดเก็บไว้</span>
@@ -783,12 +777,12 @@
     </div>
 </div>
 
-<!-- เสียง (สามารถเปลี่ยนไฟล์เป็นของตัวเองได้) -->
+<!-- เสียง -->
 <audio id="sound-add" src="https://actions.google.com/sounds/v1/cartoon/pop.ogg"></audio>
 <audio id="sound-complete" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"></audio>
 <audio id="sound-delete" src="https://actions.google.com/sounds/v1/cartoon/clang.ogg"></audio>
 
-<!-- popup ยืนยันลบ -->
+<!-- popup ลบ -->
 <div id="deleteModal" class="modal-backdrop">
     <div class="modal">
         <div class="modal-title">ลบงานนี้ไหม? 💔</div>
@@ -803,7 +797,6 @@
 </div>
 
 <script>
-    // ---------- DATA & STATE ----------
     let todos = JSON.parse(localStorage.getItem("todos_v8") || "[]");
     let filters = JSON.parse(localStorage.getItem("todo_filters_v1") || "null");
     if (!filters) {
@@ -836,7 +829,6 @@
     const sectionDone = document.querySelector(".section-done");
     const sectionArchive = document.querySelector(".section-archive");
 
-    // เสียง
     const soundAdd = document.getElementById("sound-add");
     const soundComplete = document.getElementById("sound-complete");
     const soundDelete = document.getElementById("sound-delete");
@@ -847,12 +839,9 @@
                 audio.currentTime = 0;
                 audio.play();
             }
-        } catch (e) {
-            // ถ้าเบราว์เซอร์บล็อกเสียงไม่เป็นไร
-        }
+        } catch (e) {}
     }
 
-    // popup delete
     const deleteModal = document.getElementById("deleteModal");
     const deleteCancelBtn = document.getElementById("deleteCancelBtn");
     const deleteConfirmBtn = document.getElementById("deleteConfirmBtn");
@@ -872,9 +861,7 @@
 
     deleteCancelBtn.onclick = closeDeleteModal;
     deleteModal.onclick = (e) => {
-        if (e.target === deleteModal) {
-            closeDeleteModal();
-        }
+        if (e.target === deleteModal) closeDeleteModal();
     };
 
     deleteConfirmBtn.onclick = () => {
@@ -897,7 +884,7 @@
 
     function getTodayInfo() {
         const now = new Date();
-        const dayIndex = now.getDay(); // 0=อาทิตย์
+        const dayIndex = now.getDay();
         let dayName = "";
         if (dayIndex === 1) dayName = "จันทร์";
         else if (dayIndex === 2) dayName = "อังคาร";
@@ -911,7 +898,7 @@
 
     function getTodayDateStr() {
         const d = new Date();
-        return d.toISOString().slice(0, 10); // yyyy-mm-dd
+        return d.toISOString().slice(0, 10);
     }
 
     const todayInfo = getTodayInfo();
@@ -939,7 +926,6 @@
             `<span>ค้างเกินกำหนด <strong>${overdue}</strong></span>`;
     }
 
-    // ---------- FILTERS ----------
     function applyFiltersToList(baseList) {
         return baseList.filter(item => {
             if (filters.day !== "all" && item.day !== filters.day) return false;
@@ -971,19 +957,23 @@
 
     function updateFilterPillsUI() {
         document.querySelectorAll("[data-filter-day]").forEach(btn => {
-            btn.classList.toggle("selected", btn.dataset.filterDay === filters.day ||
+            btn.classList.toggle("selected",
+                btn.dataset.filterDay === filters.day ||
                 (filters.day === "all" && btn.dataset.filterDay === "all"));
         });
         document.querySelectorAll("[data-filter-session]").forEach(btn => {
-            btn.classList.toggle("selected", btn.dataset.filterSession === filters.session ||
+            btn.classList.toggle("selected",
+                btn.dataset.filterSession === filters.session ||
                 (filters.session === "all" && btn.dataset.filterSession === "all"));
         });
         document.querySelectorAll("[data-filter-priority]").forEach(btn => {
-            btn.classList.toggle("selected", btn.dataset.filterPriority === filters.priority ||
+            btn.classList.toggle("selected",
+                btn.dataset.filterPriority === filters.priority ||
                 (filters.priority === "all" && btn.dataset.filterPriority === "all"));
         });
         document.querySelectorAll("[data-filter-status]").forEach(btn => {
-            btn.classList.toggle("selected", btn.dataset.filterStatus === filters.status ||
+            btn.classList.toggle("selected",
+                btn.dataset.filterStatus === filters.status ||
                 (filters.status === "all" && btn.dataset.filterStatus === "all"));
         });
     }
@@ -1026,7 +1016,6 @@
         }
     }
 
-    // ---------- NAV ----------
     function showSection(name) {
         sectionActive.classList.remove("active-section");
         sectionDone.classList.remove("active-section");
@@ -1045,7 +1034,6 @@
         btn.onclick = () => showSection(btn.dataset.section);
     });
 
-    // ---------- RENDER ----------
     function render() {
         listActive.innerHTML = "";
         listDone.innerHTML = "";
@@ -1078,14 +1066,10 @@
 
                 const li = document.createElement("li");
                 if (item.priority === "high") li.classList.add("high-priority");
-                if (!item.done &&
-                    item.day &&
-                    item.session &&
-                    item.day === todayInfo.day &&
-                    item.session === todayInfo.session) {
+                if (!item.done && item.day && item.session &&
+                    item.day === todayInfo.day && item.session === todayInfo.session) {
                     li.classList.add("focus-task");
                 }
-
                 if (!item.done && item.dueDate && item.dueDate < todayStr) {
                     li.classList.add("overdue");
                 }
@@ -1114,7 +1098,6 @@
                 const favSpan = document.createElement("span");
                 favSpan.className = "fav-star" + (item.favorite ? " active" : "");
                 favSpan.textContent = "★";
-                favSpan.title = "ติดดาว/เอาดาวออก";
                 favSpan.onclick = () => {
                     item.favorite = !item.favorite;
                     saveTodos();
@@ -1144,7 +1127,6 @@
 
                 const tags = document.createElement("div");
                 tags.className = "tags";
-
                 if (item.day) {
                     const tagDay = document.createElement("span");
                     tagDay.className = "tag tag-day";
@@ -1163,18 +1145,27 @@
                 tagPriority.textContent =
                     item.priority === "high" ? "สำคัญมาก" : "สำคัญน้อย";
                 tags.appendChild(tagPriority);
-
                 if (item.dueDate) {
                     const tagDue = document.createElement("span");
                     tagDue.className = "tag tag-due";
                     tagDue.textContent = "กำหนดส่ง";
                     tags.appendChild(tagDue);
                 }
-
                 content.appendChild(tags);
 
                 const btnGroup = document.createElement("div");
                 btnGroup.className = "btn-group-right";
+
+                const doneBtn = document.createElement("button");
+                doneBtn.className = "doneBtn";
+                doneBtn.textContent = item.done ? "ยกเลิกเสร็จ" : "เสร็จสิ้น";
+                doneBtn.onclick = () => {
+                    item.done = !item.done;
+                    saveTodos();
+                    playSound(soundComplete);
+                    render();
+                };
+                btnGroup.appendChild(doneBtn);
 
                 const archiveBtn = document.createElement("button");
                 archiveBtn.className = "archiveBtn";
@@ -1206,7 +1197,6 @@
         renderListWithDayDividers(activeList, listActive);
         renderListWithDayDividers(doneList, listDone);
 
-        // archived (ไม่ใช้ filter)
         archived.forEach(item => {
             const li = document.createElement("li");
             if (item.priority === "high") li.classList.add("high-priority");
@@ -1322,12 +1312,10 @@
         updateFilterChipsAndSummary(sortedFiltered.length);
     }
 
-    // ---------- ADD TASK ----------
     function addTask() {
         const text = input.value.trim();
         const note = noteInput.value.trim();
         const dueDate = dueInput.value || "";
-
         if (!text) return;
 
         const day = daySelect.value;
@@ -1357,9 +1345,7 @@
     }
 
     document.getElementById("addBtn").onclick = addTask;
-    input.addEventListener("keydown", e => {
-        if (e.key === "Enter") addTask();
-    });
+    input.addEventListener("keydown", e => { if (e.key === "Enter") addTask(); });
 
     document.getElementById("clearBtn").onclick = () => {
         const confirmText = prompt('ถ้าต้องการลบงานทั้งหมด พิมพ์คำว่า "ลบ" แล้วกด OK:');
@@ -1374,37 +1360,17 @@
         }
     };
 
-    // FILTER EVENTS
     document.querySelectorAll("[data-filter-day]").forEach(btn => {
-        btn.onclick = () => {
-            filters.day = btn.dataset.filterDay;
-            saveFilters();
-            render();
-        };
+        btn.onclick = () => { filters.day = btn.dataset.filterDay; saveFilters(); render(); };
     });
-
     document.querySelectorAll("[data-filter-session]").forEach(btn => {
-        btn.onclick = () => {
-            filters.session = btn.dataset.filterSession;
-            saveFilters();
-            render();
-        };
+        btn.onclick = () => { filters.session = btn.dataset.filterSession; saveFilters(); render(); };
     });
-
     document.querySelectorAll("[data-filter-priority]").forEach(btn => {
-        btn.onclick = () => {
-            filters.priority = btn.dataset.filterPriority;
-            saveFilters();
-            render();
-        };
+        btn.onclick = () => { filters.priority = btn.dataset.filterPriority; saveFilters(); render(); };
     });
-
     document.querySelectorAll("[data-filter-status]").forEach(btn => {
-        btn.onclick = () => {
-            filters.status = btn.dataset.filterStatus;
-            saveFilters();
-            render();
-        };
+        btn.onclick = () => { filters.status = btn.dataset.filterStatus; saveFilters(); render(); };
     });
 
     clearFiltersBtn.onclick = () => {
@@ -1443,8 +1409,7 @@
         };
     });
 
-    // INIT
-    showSection("active"); // หน้าแรก = งานยังไม่เสร็จ
+    showSection("active");
     render();
 </script>
 </body>
