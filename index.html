@@ -12,11 +12,17 @@
             --pink-deep: #e5397a;
             --green: #4caf50;
             --red: #ff5252;
-            --text-main: #333;
+            --text-main: #3a2b3b;
+            --bg-gradient-1: #ffd1e3;
+            --bg-gradient-2: #ffeaf3;
+            --bg-gradient-3: #fdfbff;
         }
 
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
+        /* พื้นหลังขยับ */
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             margin: 0;
@@ -24,39 +30,80 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            background: radial-gradient(circle at top, #ffd1e3, #ffeaf3, #ffffff);
+            align-items: flex-start;
+            background: radial-gradient(circle at top, var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-gradient-3));
+            animation: bgShift 16s ease-in-out infinite alternate;
             color: var(--text-main);
+        }
+
+        @keyframes bgShift {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 50% 50%; }
+            100% { background-position: 100% 0%; }
         }
 
         .app {
             width: 100%;
-            max-width: 540px;
-            background: white;
-            border-radius: 18px;
-            padding: 18px 16px 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+            max-width: 560px;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 22px;
+            padding: 18px 16px 22px;
+            box-shadow: 0 12px 30px rgba(255, 122, 162, 0.25);
             border: 1px solid #ffe0f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* หัวใจลอย */
+        .floating-heart {
+            position: absolute;
+            font-size: 16px;
+            opacity: 0.5;
+            animation: floatHeart 18s linear infinite;
+            pointer-events: none;
+        }
+        .floating-heart:nth-child(1) { left: 5%; bottom: -10%; animation-duration: 16s; }
+        .floating-heart:nth-child(2) { left: 80%; bottom: -15%; animation-duration: 20s; }
+        .floating-heart:nth-child(3) { left: 45%; bottom: -12%; animation-duration: 18s; }
+
+        @keyframes floatHeart {
+            0% { transform: translateY(0) translateX(0) scale(0.8); opacity: 0; }
+            10% { opacity: 0.5; }
+            50% { opacity: 0.7; }
+            100% { transform: translateY(-160%) translateX(10px) scale(1.1); opacity: 0; }
         }
 
         .header {
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
+            position: relative;
         }
 
         .header-title {
             font-size: 24px;
-            font-weight: 700;
+            font-weight: 800;
             margin: 0;
-            display: flex;
+            display: inline-flex;
             justify-content: center;
             gap: 6px;
             align-items: center;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #ffe6f1, #fff);
+            box-shadow: 0 6px 14px rgba(255, 122, 162, 0.25);
+            animation: titlePop 1s ease-out;
+        }
+
+        @keyframes titlePop {
+            0% { transform: translateY(-10px) scale(0.9); opacity: 0; }
+            60% { transform: translateY(0) scale(1.03); opacity: 1; }
+            100% { transform: translateY(0) scale(1); }
         }
 
         .header-sub {
             font-size: 12px;
             margin-top: 4px;
-            color: #777;
+            color: #8a6a80;
         }
 
         .chip-today {
@@ -69,6 +116,13 @@
             font-size: 11px;
             background: var(--pink-soft2);
             color: var(--pink-deep);
+            box-shadow: 0 2px 6px rgba(255, 122, 162, 0.25);
+            animation: chipPulse 2.5s ease-in-out infinite;
+        }
+
+        @keyframes chipPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 2px 6px rgba(255, 122, 162, 0.25); }
+            50% { transform: scale(1.03); box-shadow: 0 4px 10px rgba(255, 122, 162, 0.35); }
         }
 
         .row {
@@ -85,14 +139,18 @@
             border: 1px solid #ffd0e1;
             outline: none;
             background: #fff;
+            transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
         }
 
         input:focus, select:focus {
             border-color: var(--pink-main);
-            box-shadow: 0 0 0 2px rgba(255,122,162,0.15);
+            box-shadow: 0 0 0 2px rgba(255, 122, 162, 0.18);
+            transform: translateY(-1px);
         }
 
-        .row-main input { flex: 1; }
+        .row-main input {
+            flex: 1;
+        }
 
         button {
             border-radius: 999px;
@@ -100,18 +158,24 @@
             cursor: pointer;
             font-size: 13px;
             padding: 9px 14px;
-            transition: transform 0.08s ease, box-shadow 0.08s ease, opacity 0.15s ease;
+            transition: transform 0.08s ease, box-shadow 0.08s ease, opacity 0.15s ease, background 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
         }
 
         button:active {
-            transform: scale(0.97);
+            transform: scale(0.96) translateY(0);
             box-shadow: none;
+            opacity: 0.9;
         }
 
         #addBtn {
             background: linear-gradient(135deg, var(--pink-main), var(--pink-deep));
             color: white;
-            box-shadow: 0 4px 10px rgba(229,57,122,0.35);
+            box-shadow: 0 4px 12px rgba(229,57,122,0.35);
             white-space: nowrap;
         }
 
@@ -124,7 +188,13 @@
             border: 1px solid #ffc4d7;
         }
 
-        .note-input { width: 100%; }
+        .note-input {
+            flex: 1;
+        }
+
+        .due-input {
+            width: 150px;
+        }
 
         .stats {
             margin-top: 6px;
@@ -136,14 +206,55 @@
             display: inline-flex;
             flex-wrap: wrap;
             gap: 6px;
+            animation: fadeIn 0.6s ease-out;
         }
 
-        .stats strong { color: var(--pink-deep); }
+        .stats strong {
+            color: var(--pink-deep);
+        }
+
+        /* NAV TABS */
+        .nav-tabs {
+            display: flex;
+            gap: 6px;
+            margin-top: 10px;
+            margin-bottom: 6px;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 8px;
+            border-radius: 999px;
+            border: 1px solid #ffd0e1;
+            background: #ffeaf3;
+            cursor: pointer;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .nav-btn span.icon {
+            font-size: 14px;
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, var(--pink-main), var(--pink-deep));
+            color: white;
+            border-color: #e5397a;
+            box-shadow: 0 4px 10px rgba(229,57,122,0.35);
+        }
 
         /* FILTER UI */
         .filters {
-            margin-top: 10px;
+            margin-top: 8px;
             font-size: 11px;
+            border-radius: 14px;
+            padding: 8px 8px 6px;
+            background: #fff7fb;
+            border: 1px dashed #ffc4dc;
+            animation: fadeIn 0.6s ease-out;
         }
 
         .filter-row {
@@ -173,6 +284,7 @@
             background: var(--pink-main);
             color: white;
             border-color: var(--pink-deep);
+            box-shadow: 0 2px 6px rgba(229,57,122,0.3);
         }
 
         .preset-pill {
@@ -185,7 +297,7 @@
         }
 
         .preset-pill:hover {
-            opacity: 0.9;
+            opacity: 0.95;
         }
 
         .filter-chips {
@@ -222,10 +334,26 @@
             color: #777;
         }
 
-        .sections { margin-top: 12px; }
+        .sections {
+            margin-top: 10px;
+            position: relative;
+        }
+
+        .section {
+            display: none;
+            opacity: 0;
+            transform: translateY(6px);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        .section.active-section {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         .section-title {
-            margin-top: 12px;
+            margin-top: 6px;
             margin-bottom: 4px;
             font-weight: 600;
             font-size: 13px;
@@ -235,7 +363,9 @@
             color: #555;
         }
 
-        .section-title span.icon { font-size: 15px; }
+        .section-title span.icon {
+            font-size: 15px;
+        }
 
         ul {
             margin: 0;
@@ -255,15 +385,48 @@
         li {
             background: var(--pink-soft2);
             padding: 10px 10px;
-            border-radius: 12px;
+            border-radius: 14px;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 8px;
             border-left: 4px solid var(--green);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.04);
+            animation: cardIn 0.3s ease-out;
+            position: relative;
+            overflow: hidden;
         }
 
-        li.high-priority { border-left-color: var(--red); }
+        @keyframes cardIn {
+            0% { opacity: 0; transform: translateY(6px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        li::after {
+            content: "";
+            position: absolute;
+            top: -40%;
+            right: -40%;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, rgba(255,182,193,0.4), transparent 60%);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s;
+        }
+
+        li:hover::after {
+            opacity: 1;
+        }
+
+        li.high-priority {
+            border-left-color: var(--red);
+        }
+
+        li.overdue {
+            border-left-color: #ff9800;
+            box-shadow: 0 3px 10px rgba(255,152,0,0.35);
+        }
 
         li.focus-task {
             box-shadow: 0 0 0 2px rgba(255,193,7,0.6);
@@ -282,7 +445,7 @@
         }
 
         .task-icon {
-            font-size: 16px;
+            font-size: 18px;
             flex-shrink: 0;
         }
 
@@ -298,15 +461,24 @@
             font-size: 16px;
             cursor: pointer;
             flex-shrink: 0;
+            color: #d0c0d8;
+            transition: transform 0.15s, color 0.15s;
         }
 
         .fav-star.active {
-            color: #ff9800;
+            color: #ffb300;
+            transform: scale(1.1) rotate(-8deg);
         }
 
         .note-text {
             font-size: 11px;
             color: #777;
+            margin-top: 2px;
+        }
+
+        .due-text {
+            font-size: 11px;
+            color: #d84315;
             margin-top: 2px;
         }
 
@@ -333,6 +505,7 @@
         .tag-session { background: #e3f2fd; color: #1565c0; }
         .tag-priority-high { background: #ffebee; color: #c62828; }
         .tag-priority-low { background: #f1f8e9; color: #558b2f; }
+        .tag-due { background: #fff3e0; color: #e65100; }
 
         .btn-group-right {
             display: flex;
@@ -362,6 +535,87 @@
             margin: 4px 0 0 2px;
         }
 
+        /* popup ยืนยันลบน่ารัก ๆ */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.25);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+        }
+
+        .modal-backdrop.show {
+            display: flex;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .modal {
+            background: #fff5fb;
+            border-radius: 18px;
+            padding: 14px 16px;
+            max-width: 280px;
+            width: 90%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+            border: 1px solid #ffc4dc;
+            animation: popIn 0.2s ease-out;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .modal-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .modal-message {
+            font-size: 12px;
+            color: #6d4c5b;
+            margin-bottom: 10px;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .modal-btn {
+            font-size: 12px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .modal-btn.cancel {
+            background: #fff;
+            border: 1px solid #ffc4dc;
+            color: #ad1457;
+        }
+
+        .modal-btn.confirm {
+            background: linear-gradient(135deg, #ff7aa2, #e5397a);
+            color: #fff;
+            box-shadow: 0 3px 8px rgba(229,57,122,0.4);
+        }
+
+        /* เสียง / เล็กๆ น้อยๆ */
+        audio { display: none; }
+
         @media (max-width: 400px) {
             .header-title { font-size: 20px; }
             button { font-size: 12px; }
@@ -372,11 +626,16 @@
 
 <body>
 <div class="app">
+    <!-- หัวใจลอย -->
+    <div class="floating-heart">💗</div>
+    <div class="floating-heart">✨</div>
+    <div class="floating-heart">🌸</div>
+
     <header class="header">
         <h1 class="header-title">
-            <span>🎀</span><span>OHM AND AMP To-Do</span>
+            <span>🎀</span><span>Pink To-Do</span><span>🌸</span>
         </h1>
-        <div class="header-sub">รักแอมนะอิอิ</div>
+        <div class="header-sub">จัดตารางงานน่ารัก ๆ ของคุณเอง</div>
         <div class="chip-today" id="todayChip">
             📅 วันนี้: -
         </div>
@@ -420,12 +679,26 @@
         </select>
     </div>
 
-    <!-- ช่องหมายเหตุ -->
+    <!-- หมายเหตุ + กำหนดส่ง -->
     <div class="row">
         <input id="noteInput" class="note-input" type="text" placeholder="หมายเหตุ (ไม่กรอกก็ได้)...">
+        <input id="dueInput" class="due-input" type="date">
     </div>
 
     <div id="stats" class="stats"></div>
+
+    <!-- NAV TABS -->
+    <div class="nav-tabs">
+        <button class="nav-btn active" data-section="active">
+            <span class="icon">⏳</span><span>งานยังไม่เสร็จ</span>
+        </button>
+        <button class="nav-btn" data-section="done">
+            <span class="icon">✅</span><span>งานเสร็จแล้ว</span>
+        </button>
+        <button class="nav-btn" data-section="archive">
+            <span class="icon">📦</span><span>งานที่จัดเก็บ</span>
+        </button>
+    </div>
 
     <!-- FILTER BAR -->
     <div class="filters">
@@ -474,7 +747,6 @@
             </button>
         </div>
 
-        <!-- Chips -->
         <div id="filterChips" class="filter-chips"></div>
         <div id="filterSummary" class="filter-summary-text"></div>
     </div>
@@ -482,30 +754,57 @@
     <button id="clearBtn">ลบงานทั้งหมด</button>
 
     <div class="sections">
-        <div class="section-title">
-            <span class="icon">⏳</span><span>งานที่ยังไม่เสร็จ</span>
+        <!-- SECTION: ACTIVE -->
+        <div class="section section-active active-section">
+            <div class="section-title">
+                <span class="icon">⏳</span><span>งานที่ยังไม่เสร็จ</span>
+            </div>
+            <ul id="taskListActive"></ul>
+            <div id="emptyActive" class="empty-text" style="display:none;">ยังไม่มีงานค้างอยู่ ✨</div>
         </div>
-        <ul id="taskListActive"></ul>
-        <div id="emptyActive" class="empty-text" style="display:none;">ยังไม่มีงานค้างอยู่ ✨</div>
 
-        <div class="section-title" style="margin-top:14px;">
-            <span class="icon">✅</span><span>งานที่เสร็จแล้ว</span>
+        <!-- SECTION: DONE -->
+        <div class="section section-done">
+            <div class="section-title">
+                <span class="icon">✅</span><span>งานที่เสร็จแล้ว</span>
+            </div>
+            <ul id="taskListDone"></ul>
+            <div id="emptyDone" class="empty-text" style="display:none;">ยังไม่มีงานที่เสร็จแล้ว</div>
         </div>
-        <ul id="taskListDone"></ul>
-        <div id="emptyDone" class="empty-text" style="display:none;">ยังไม่มีงานที่เสร็จแล้ว</div>
 
-        <div class="section-title" style="margin-top:14px;">
-            <span class="icon">📦</span><span>งานที่เก็บไว้ (Archive)</span>
+        <!-- SECTION: ARCHIVE -->
+        <div class="section section-archive">
+            <div class="section-title">
+                <span class="icon">📦</span><span>งานที่จัดเก็บไว้</span>
+            </div>
+            <ul id="taskListArchived"></ul>
+            <div id="emptyArchived" class="empty-text" style="display:none;">ยังไม่มีงานที่เก็บไว้</div>
         </div>
-        <ul id="taskListArchived"></ul>
-        <div id="emptyArchived" class="empty-text" style="display:none;">ยังไม่มีงานที่เก็บไว้</div>
+    </div>
+</div>
+
+<!-- เสียง (สามารถเปลี่ยนไฟล์เป็นของตัวเองได้) -->
+<audio id="sound-add" src="https://actions.google.com/sounds/v1/cartoon/pop.ogg"></audio>
+<audio id="sound-complete" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"></audio>
+<audio id="sound-delete" src="https://actions.google.com/sounds/v1/cartoon/clang.ogg"></audio>
+
+<!-- popup ยืนยันลบ -->
+<div id="deleteModal" class="modal-backdrop">
+    <div class="modal">
+        <div class="modal-title">ลบงานนี้ไหม? 💔</div>
+        <div class="modal-message" id="deleteModalMessage">
+            คุณต้องการลบงานนี้จริง ๆ ใช่ไหม
+        </div>
+        <div class="modal-actions">
+            <button class="modal-btn cancel" id="deleteCancelBtn">ยกเลิก</button>
+            <button class="modal-btn confirm" id="deleteConfirmBtn">ลบเลย</button>
+        </div>
     </div>
 </div>
 
 <script>
-    // ------- DATA & STATE -------
-    let todos = JSON.parse(localStorage.getItem("todos_v6") || "[]");
-
+    // ---------- DATA & STATE ----------
+    let todos = JSON.parse(localStorage.getItem("todos_v8") || "[]");
     let filters = JSON.parse(localStorage.getItem("todo_filters_v1") || "null");
     if (!filters) {
         filters = { day: "all", session: "all", priority: "all", status: "all" };
@@ -513,6 +812,7 @@
 
     const input = document.getElementById("taskInput");
     const noteInput = document.getElementById("noteInput");
+    const dueInput = document.getElementById("dueInput");
     const daySelect = document.getElementById("daySelect");
     const sessionSelect = document.getElementById("sessionSelect");
     const prioritySelect = document.getElementById("prioritySelect");
@@ -531,9 +831,66 @@
     const filterSummary = document.getElementById("filterSummary");
     const clearFiltersBtn = document.getElementById("clearFiltersBtn");
 
-    function saveTodos() {
-        localStorage.setItem("todos_v6", JSON.stringify(todos));
+    const navBtns = document.querySelectorAll(".nav-btn");
+    const sectionActive = document.querySelector(".section-active");
+    const sectionDone = document.querySelector(".section-done");
+    const sectionArchive = document.querySelector(".section-archive");
+
+    // เสียง
+    const soundAdd = document.getElementById("sound-add");
+    const soundComplete = document.getElementById("sound-complete");
+    const soundDelete = document.getElementById("sound-delete");
+
+    function playSound(audio) {
+        try {
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play();
+            }
+        } catch (e) {
+            // ถ้าเบราว์เซอร์บล็อกเสียงไม่เป็นไร
+        }
     }
+
+    // popup delete
+    const deleteModal = document.getElementById("deleteModal");
+    const deleteCancelBtn = document.getElementById("deleteCancelBtn");
+    const deleteConfirmBtn = document.getElementById("deleteConfirmBtn");
+    const deleteModalMessage = document.getElementById("deleteModalMessage");
+    let deleteTargetIndex = null;
+
+    function openDeleteModal(index, text) {
+        deleteTargetIndex = index;
+        deleteModalMessage.textContent = `คุณต้องการลบงานนี้จริง ๆ ใช่ไหม: "${text}"`;
+        deleteModal.classList.add("show");
+    }
+
+    function closeDeleteModal() {
+        deleteModal.classList.remove("show");
+        deleteTargetIndex = null;
+    }
+
+    deleteCancelBtn.onclick = closeDeleteModal;
+    deleteModal.onclick = (e) => {
+        if (e.target === deleteModal) {
+            closeDeleteModal();
+        }
+    };
+
+    deleteConfirmBtn.onclick = () => {
+        if (deleteTargetIndex !== null && todos[deleteTargetIndex]) {
+            todos.splice(deleteTargetIndex, 1);
+            saveTodos();
+            playSound(soundDelete);
+            closeDeleteModal();
+            render();
+        }
+    };
+
+    function saveTodos() {
+        localStorage.setItem("todos_v8", JSON.stringify(todos));
+    }
+
     function saveFilters() {
         localStorage.setItem("todo_filters_v1", JSON.stringify(filters));
     }
@@ -552,6 +909,11 @@
         return { day: dayName, session: session };
     }
 
+    function getTodayDateStr() {
+        const d = new Date();
+        return d.toISOString().slice(0, 10); // yyyy-mm-dd
+    }
+
     const todayInfo = getTodayInfo();
     if (todayInfo.day) {
         todayChip.textContent = `📅 วันนี้: ${todayInfo.day} ช่วง${todayInfo.session}`;
@@ -565,16 +927,19 @@
         const done = todos.filter(t => t.done && !t.archived).length;
         const archived = todos.filter(t => t.archived).length;
         const highActive = todos.filter(t => !t.done && !t.archived && t.priority === "high").length;
+        const todayStr = getTodayDateStr();
+        const overdue = todos.filter(t => !t.done && !t.archived && t.dueDate && t.dueDate < todayStr).length;
 
         statsDiv.innerHTML =
             `<span><strong>${total}</strong> งานทั้งหมด</span> · ` +
             `<span>ค้างอยู่ <strong>${active}</strong></span> · ` +
             `<span>เสร็จแล้ว <strong>${done}</strong></span> · ` +
             `<span>เก็บไว้ <strong>${archived}</strong></span> · ` +
-            `<span>สำคัญมากค้างอยู่ <strong>${highActive}</strong></span>`;
+            `<span>สำคัญมากค้างอยู่ <strong>${highActive}</strong></span> · ` +
+            `<span>ค้างเกินกำหนด <strong>${overdue}</strong></span>`;
     }
 
-    // ---------- FILTER LOGIC ----------
+    // ---------- FILTERS ----------
     function applyFiltersToList(baseList) {
         return baseList.filter(item => {
             if (filters.day !== "all" && item.day !== filters.day) return false;
@@ -587,28 +952,20 @@
     }
 
     function dayOrderValue(day) {
-        const orderMap = {
-            "จันทร์": 0,
-            "อังคาร": 1,
-            "พุธ": 2,
-            "พฤหัสบดี": 3,
-            "ศุกร์": 4
-        };
+        const orderMap = { "จันทร์":0, "อังคาร":1, "พุธ":2, "พฤหัสบดี":3, "ศุกร์":4 };
         if (!day || !(day in orderMap)) return 5;
         return orderMap[day];
     }
 
     function sortTasks(list) {
         return list.slice().sort((a, b) => {
-            // favorite ก่อน
             if ((b.favorite ? 1 : 0) !== (a.favorite ? 1 : 0)) {
                 return (b.favorite ? 1 : 0) - (a.favorite ? 1 : 0);
             }
-            // วัน
             const da = dayOrderValue(a.day);
             const db = dayOrderValue(b.day);
             if (da !== db) return da - db;
-            return 0; // ถ้าอยากละเอียดกว่านี้ค่อยเพิ่มต่อได้
+            return 0;
         });
     }
 
@@ -634,13 +991,8 @@
     function updateFilterChipsAndSummary(filteredCount) {
         filterChips.innerHTML = "";
         const chips = [];
-
-        if (filters.day !== "all") {
-            chips.push({ key: "day", label: "วัน: " + filters.day });
-        }
-        if (filters.session !== "all") {
-            chips.push({ key: "session", label: "เวลา: " + filters.session });
-        }
+        if (filters.day !== "all") chips.push({ key: "day", label: "วัน: " + filters.day });
+        if (filters.session !== "all") chips.push({ key: "session", label: "เวลา: " + filters.session });
         if (filters.priority !== "all") {
             const t = filters.priority === "high" ? "สำคัญมาก" : "สำคัญน้อย";
             chips.push({ key: "priority", label: "สำคัญ: " + t });
@@ -674,6 +1026,25 @@
         }
     }
 
+    // ---------- NAV ----------
+    function showSection(name) {
+        sectionActive.classList.remove("active-section");
+        sectionDone.classList.remove("active-section");
+        sectionArchive.classList.remove("active-section");
+
+        if (name === "active") sectionActive.classList.add("active-section");
+        if (name === "done") sectionDone.classList.add("active-section");
+        if (name === "archive") sectionArchive.classList.add("active-section");
+
+        navBtns.forEach(btn => {
+            btn.classList.toggle("active", btn.dataset.section === name);
+        });
+    }
+
+    navBtns.forEach(btn => {
+        btn.onclick = () => showSection(btn.dataset.section);
+    });
+
     // ---------- RENDER ----------
     function render() {
         listActive.innerHTML = "";
@@ -689,10 +1060,12 @@
         const activeList = sortedFiltered.filter(t => !t.done);
         const doneList = sortedFiltered.filter(t => t.done);
 
-        // group by day
-        function renderListWithDayDividers(list, ulElement, isDoneSection) {
+        const todayStr = getTodayDateStr();
+
+        function renderListWithDayDividers(list, ulElement) {
             ulElement.innerHTML = "";
             let lastDayKey = "__INIT__";
+
             list.forEach(item => {
                 const dayKey = item.day || "ไม่ระบุวัน";
                 if (dayKey !== lastDayKey) {
@@ -713,6 +1086,10 @@
                     li.classList.add("focus-task");
                 }
 
+                if (!item.done && item.dueDate && item.dueDate < todayStr) {
+                    li.classList.add("overdue");
+                }
+
                 const content = document.createElement("div");
                 content.className = "task-content";
 
@@ -730,6 +1107,7 @@
                 textSpan.onclick = () => {
                     item.done = !item.done;
                     saveTodos();
+                    playSound(soundComplete);
                     render();
                 };
 
@@ -756,8 +1134,17 @@
                     content.appendChild(noteSpan);
                 }
 
+                if (item.dueDate) {
+                    const dueSpan = document.createElement("div");
+                    dueSpan.className = "due-text";
+                    dueSpan.textContent = "กำหนดส่ง: " + item.dueDate;
+                    if (item.done) dueSpan.classList.add("done");
+                    content.appendChild(dueSpan);
+                }
+
                 const tags = document.createElement("div");
                 tags.className = "tags";
+
                 if (item.day) {
                     const tagDay = document.createElement("span");
                     tagDay.className = "tag tag-day";
@@ -771,9 +1158,19 @@
                     tags.appendChild(tagSession);
                 }
                 const tagPriority = document.createElement("span");
-                tagPriority.className = "tag " + (item.priority === "high" ? "tag-priority-high" : "tag-priority-low");
-                tagPriority.textContent = item.priority === "high" ? "สำคัญมาก" : "สำคัญน้อย";
+                tagPriority.className =
+                    "tag " + (item.priority === "high" ? "tag-priority-high" : "tag-priority-low");
+                tagPriority.textContent =
+                    item.priority === "high" ? "สำคัญมาก" : "สำคัญน้อย";
                 tags.appendChild(tagPriority);
+
+                if (item.dueDate) {
+                    const tagDue = document.createElement("span");
+                    tagDue.className = "tag tag-due";
+                    tagDue.textContent = "กำหนดส่ง";
+                    tags.appendChild(tagDue);
+                }
+
                 content.appendChild(tags);
 
                 const btnGroup = document.createElement("div");
@@ -794,9 +1191,9 @@
                 deleteBtn.textContent = "ลบ";
                 deleteBtn.onclick = () => {
                     const idx = todos.indexOf(item);
-                    if (idx !== -1) todos.splice(idx, 1);
-                    saveTodos();
-                    render();
+                    if (idx !== -1) {
+                        openDeleteModal(idx, item.text);
+                    }
                 };
                 btnGroup.appendChild(deleteBtn);
 
@@ -806,11 +1203,10 @@
             });
         }
 
-        renderListWithDayDividers(activeList, listActive, false);
-        renderListWithDayDividers(doneList, listDone, true);
+        renderListWithDayDividers(activeList, listActive);
+        renderListWithDayDividers(doneList, listDone);
 
-        // archived list (ไม่ใช้ filter)
-        listArchived.innerHTML = "";
+        // archived (ไม่ใช้ filter)
         archived.forEach(item => {
             const li = document.createElement("li");
             if (item.priority === "high") li.classList.add("high-priority");
@@ -852,6 +1248,14 @@
                 content.appendChild(noteSpan);
             }
 
+            if (item.dueDate) {
+                const dueSpan = document.createElement("div");
+                dueSpan.className = "due-text";
+                dueSpan.textContent = "กำหนดส่ง: " + item.dueDate;
+                if (item.done) dueSpan.classList.add("done");
+                content.appendChild(dueSpan);
+            }
+
             const tags = document.createElement("div");
             tags.className = "tags";
             if (item.day) {
@@ -867,9 +1271,17 @@
                 tags.appendChild(tagSession);
             }
             const tagPriority = document.createElement("span");
-            tagPriority.className = "tag " + (item.priority === "high" ? "tag-priority-high" : "tag-priority-low");
-            tagPriority.textContent = item.priority === "high" ? "สำคัญมาก" : "สำคัญน้อย";
+            tagPriority.className =
+                "tag " + (item.priority === "high" ? "tag-priority-high" : "tag-priority-low");
+            tagPriority.textContent =
+                item.priority === "high" ? "สำคัญมาก" : "สำคัญน้อย";
             tags.appendChild(tagPriority);
+            if (item.dueDate) {
+                const tagDue = document.createElement("span");
+                tagDue.className = "tag tag-due";
+                tagDue.textContent = "กำหนดส่ง";
+                tags.appendChild(tagDue);
+            }
             content.appendChild(tags);
 
             const btnGroup = document.createElement("div");
@@ -890,9 +1302,9 @@
             deleteBtn.textContent = "ลบ";
             deleteBtn.onclick = () => {
                 const idx = todos.indexOf(item);
-                if (idx !== -1) todos.splice(idx, 1);
-                saveTodos();
-                render();
+                if (idx !== -1) {
+                    openDeleteModal(idx, item.text);
+                }
             };
             btnGroup.appendChild(deleteBtn);
 
@@ -914,6 +1326,8 @@
     function addTask() {
         const text = input.value.trim();
         const note = noteInput.value.trim();
+        const dueDate = dueInput.value || "";
+
         if (!text) return;
 
         const day = daySelect.value;
@@ -928,6 +1342,7 @@
             day,
             session,
             priority,
+            dueDate,
             done: false,
             favorite: false,
             archived: false
@@ -935,7 +1350,9 @@
 
         input.value = "";
         noteInput.value = "";
+        dueInput.value = "";
         saveTodos();
+        playSound(soundAdd);
         render();
     }
 
@@ -949,6 +1366,7 @@
         if (confirmText === "ลบ") {
             todos = [];
             saveTodos();
+            playSound(soundDelete);
             render();
             alert("ลบงานทั้งหมดแล้ว");
         } else if (confirmText !== null) {
@@ -956,7 +1374,7 @@
         }
     };
 
-    // ---------- FILTER EVENTS ----------
+    // FILTER EVENTS
     document.querySelectorAll("[data-filter-day]").forEach(btn => {
         btn.onclick = () => {
             filters.day = btn.dataset.filterDay;
@@ -998,7 +1416,7 @@
     document.querySelectorAll("[data-preset]").forEach(btn => {
         btn.onclick = () => {
             if (!todayInfo.day) {
-                alert("วันนี้ไม่ใช่วันจันทร์–ศุกร์ เลยไม่ใช้ preset วันนี้ได้เต็ม ๆ นะ");
+                alert("วันนี้ไม่ใช่วันจันทร์–ศุกร์ เลยใช้ preset วันนี้ได้ไม่เต็มนะ");
             }
             const preset = btn.dataset.preset;
             filters.status = "active";
@@ -1025,7 +1443,1459 @@
         };
     });
 
-    // ---------- INIT ----------
+    // INIT
+    showSection("active"); // หน้าแรก = งานยังไม่เสร็จ
+    render();
+</script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pink To-Do List</title>
+    <style>
+        :root {
+            --pink-main: #ff7aa2;
+            --pink-soft: #ffe4ee;
+            --pink-soft2: #fff5f9;
+            --pink-deep: #e5397a;
+            --green: #4caf50;
+            --red: #ff5252;
+            --text-main: #3a2b3b;
+            --bg-gradient-1: #ffd1e3;
+            --bg-gradient-2: #ffeaf3;
+            --bg-gradient-3: #fdfbff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        /* พื้นหลังขยับ */
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            margin: 0;
+            padding: 16px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            background: radial-gradient(circle at top, var(--bg-gradient-1), var(--bg-gradient-2), var(--bg-gradient-3));
+            animation: bgShift 16s ease-in-out infinite alternate;
+            color: var(--text-main);
+        }
+
+        @keyframes bgShift {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 50% 50%; }
+            100% { background-position: 100% 0%; }
+        }
+
+        .app {
+            width: 100%;
+            max-width: 560px;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 22px;
+            padding: 18px 16px 22px;
+            box-shadow: 0 12px 30px rgba(255, 122, 162, 0.25);
+            border: 1px solid #ffe0f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* หัวใจลอย */
+        .floating-heart {
+            position: absolute;
+            font-size: 16px;
+            opacity: 0.5;
+            animation: floatHeart 18s linear infinite;
+            pointer-events: none;
+        }
+        .floating-heart:nth-child(1) { left: 5%; bottom: -10%; animation-duration: 16s; }
+        .floating-heart:nth-child(2) { left: 80%; bottom: -15%; animation-duration: 20s; }
+        .floating-heart:nth-child(3) { left: 45%; bottom: -12%; animation-duration: 18s; }
+
+        @keyframes floatHeart {
+            0% { transform: translateY(0) translateX(0) scale(0.8); opacity: 0; }
+            10% { opacity: 0.5; }
+            50% { opacity: 0.7; }
+            100% { transform: translateY(-160%) translateX(10px) scale(1.1); opacity: 0; }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .header-title {
+            font-size: 24px;
+            font-weight: 800;
+            margin: 0;
+            display: inline-flex;
+            justify-content: center;
+            gap: 6px;
+            align-items: center;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #ffe6f1, #fff);
+            box-shadow: 0 6px 14px rgba(255, 122, 162, 0.25);
+            animation: titlePop 1s ease-out;
+        }
+
+        @keyframes titlePop {
+            0% { transform: translateY(-10px) scale(0.9); opacity: 0; }
+            60% { transform: translateY(0) scale(1.03); opacity: 1; }
+            100% { transform: translateY(0) scale(1); }
+        }
+
+        .header-sub {
+            font-size: 12px;
+            margin-top: 4px;
+            color: #8a6a80;
+        }
+
+        .chip-today {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            font-size: 11px;
+            background: var(--pink-soft2);
+            color: var(--pink-deep);
+            box-shadow: 0 2px 6px rgba(255, 122, 162, 0.25);
+            animation: chipPulse 2.5s ease-in-out infinite;
+        }
+
+        @keyframes chipPulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 2px 6px rgba(255, 122, 162, 0.25); }
+            50% { transform: scale(1.03); box-shadow: 0 4px 10px rgba(255, 122, 162, 0.35); }
+        }
+
+        .row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        input, select {
+            padding: 9px;
+            font-size: 13px;
+            border-radius: 999px;
+            border: 1px solid #ffd0e1;
+            outline: none;
+            background: #fff;
+            transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+        }
+
+        input:focus, select:focus {
+            border-color: var(--pink-main);
+            box-shadow: 0 0 0 2px rgba(255, 122, 162, 0.18);
+            transform: translateY(-1px);
+        }
+
+        .row-main input {
+            flex: 1;
+        }
+
+        button {
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            padding: 9px 14px;
+            transition: transform 0.08s ease, box-shadow 0.08s ease, opacity 0.15s ease, background 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-1px) scale(1.02);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        }
+
+        button:active {
+            transform: scale(0.96) translateY(0);
+            box-shadow: none;
+            opacity: 0.9;
+        }
+
+        #addBtn {
+            background: linear-gradient(135deg, var(--pink-main), var(--pink-deep));
+            color: white;
+            box-shadow: 0 4px 12px rgba(229,57,122,0.35);
+            white-space: nowrap;
+        }
+
+        #clearBtn {
+            background: #ffe4ea;
+            color: #c2185b;
+            width: 100%;
+            margin-top: 4px;
+            padding: 9px;
+            border: 1px solid #ffc4d7;
+        }
+
+        .note-input {
+            flex: 1;
+        }
+
+        .due-input {
+            width: 150px;
+        }
+
+        .stats {
+            margin-top: 6px;
+            font-size: 11px;
+            color: #666;
+            background: #fff5f9;
+            padding: 6px 10px;
+            border-radius: 999px;
+            display: inline-flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .stats strong {
+            color: var(--pink-deep);
+        }
+
+        /* NAV TABS */
+        .nav-tabs {
+            display: flex;
+            gap: 6px;
+            margin-top: 10px;
+            margin-bottom: 6px;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 8px;
+            border-radius: 999px;
+            border: 1px solid #ffd0e1;
+            background: #ffeaf3;
+            cursor: pointer;
+            font-size: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .nav-btn span.icon {
+            font-size: 14px;
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(135deg, var(--pink-main), var(--pink-deep));
+            color: white;
+            border-color: #e5397a;
+            box-shadow: 0 4px 10px rgba(229,57,122,0.35);
+        }
+
+        /* FILTER UI */
+        .filters {
+            margin-top: 8px;
+            font-size: 11px;
+            border-radius: 14px;
+            padding: 8px 8px 6px;
+            background: #fff7fb;
+            border: 1px dashed #ffc4dc;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: center;
+            margin-top: 4px;
+        }
+
+        .filter-label {
+            font-weight: 600;
+            color: #777;
+            margin-right: 2px;
+        }
+
+        .pill {
+            padding: 4px 9px;
+            border-radius: 999px;
+            border: 1px solid #ffd0e1;
+            background: #fff;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .pill.selected {
+            background: var(--pink-main);
+            color: white;
+            border-color: var(--pink-deep);
+            box-shadow: 0 2px 6px rgba(229,57,122,0.3);
+        }
+
+        .preset-pill {
+            padding: 4px 9px;
+            border-radius: 999px;
+            border: 1px solid #ffc4d7;
+            background: #ffe7f1;
+            cursor: pointer;
+            font-size: 11px;
+        }
+
+        .preset-pill:hover {
+            opacity: 0.95;
+        }
+
+        .filter-chips {
+            margin-top: 6px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .filter-chip {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 999px;
+            background: #ffe4ee;
+            color: #ad1457;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .filter-chip button {
+            border: none;
+            background: transparent;
+            padding: 0;
+            margin: 0;
+            font-size: 12px;
+            cursor: pointer;
+            color: #c2185b;
+        }
+
+        .filter-summary-text {
+            font-size: 11px;
+            margin-top: 4px;
+            color: #777;
+        }
+
+        .sections {
+            margin-top: 10px;
+            position: relative;
+        }
+
+        .section {
+            display: none;
+            opacity: 0;
+            transform: translateY(6px);
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+
+        .section.active-section {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            margin-top: 6px;
+            margin-bottom: 4px;
+            font-weight: 600;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #555;
+        }
+
+        .section-title span.icon {
+            font-size: 15px;
+        }
+
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .day-divider {
+            margin-top: 6px;
+            margin-bottom: 2px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #999;
+            padding-left: 4px;
+        }
+
+        li {
+            background: var(--pink-soft2);
+            padding: 10px 10px;
+            border-radius: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            border-left: 4px solid var(--green);
+            box-shadow: 0 3px 8px rgba(0,0,0,0.04);
+            animation: cardIn 0.3s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes cardIn {
+            0% { opacity: 0; transform: translateY(6px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        li::after {
+            content: "";
+            position: absolute;
+            top: -40%;
+            right: -40%;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, rgba(255,182,193,0.4), transparent 60%);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s;
+        }
+
+        li:hover::after {
+            opacity: 1;
+        }
+
+        li.high-priority {
+            border-left-color: var(--red);
+        }
+
+        li.overdue {
+            border-left-color: #ff9800;
+            box-shadow: 0 3px 10px rgba(255,152,0,0.35);
+        }
+
+        li.focus-task {
+            box-shadow: 0 0 0 2px rgba(255,193,7,0.6);
+            background: #fff8e1;
+        }
+
+        .task-content {
+            flex: 1;
+            margin-right: 8px;
+        }
+
+        .task-header-line {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .task-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .task-text {
+            display: block;
+            font-size: 14px;
+            word-break: break-word;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .fav-star {
+            font-size: 16px;
+            cursor: pointer;
+            flex-shrink: 0;
+            color: #d0c0d8;
+            transition: transform 0.15s, color 0.15s;
+        }
+
+        .fav-star.active {
+            color: #ffb300;
+            transform: scale(1.1) rotate(-8deg);
+        }
+
+        .note-text {
+            font-size: 11px;
+            color: #777;
+            margin-top: 2px;
+        }
+
+        .due-text {
+            font-size: 11px;
+            color: #d84315;
+            margin-top: 2px;
+        }
+
+        .done {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .tags {
+            margin-top: 4px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .tag {
+            font-size: 10px;
+            padding: 2px 7px;
+            border-radius: 999px;
+            background: #eee;
+        }
+
+        .tag-day { background: #fce4ec; color: #ad1457; }
+        .tag-session { background: #e3f2fd; color: #1565c0; }
+        .tag-priority-high { background: #ffebee; color: #c62828; }
+        .tag-priority-low { background: #f1f8e9; color: #558b2f; }
+        .tag-due { background: #fff3e0; color: #e65100; }
+
+        .btn-group-right {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .deleteBtn,
+        .archiveBtn,
+        .restoreBtn {
+            background: white;
+            padding: 5px 8px;
+            border-radius: 999px;
+            font-size: 11px;
+            border: 1px solid #ffcdd2;
+            white-space: nowrap;
+        }
+
+        .deleteBtn { color: var(--red); }
+        .archiveBtn { color: #6d4c41; border-color: #d7ccc8; }
+        .restoreBtn { color: var(--green); border-color: #c8e6c9; }
+
+        .empty-text {
+            font-size: 11px;
+            color: #aaa;
+            font-style: italic;
+            margin: 4px 0 0 2px;
+        }
+
+        /* popup ยืนยันลบน่ารัก ๆ */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.25);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+        }
+
+        .modal-backdrop.show {
+            display: flex;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .modal {
+            background: #fff5fb;
+            border-radius: 18px;
+            padding: 14px 16px;
+            max-width: 280px;
+            width: 90%;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+            border: 1px solid #ffc4dc;
+            animation: popIn 0.2s ease-out;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .modal-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .modal-message {
+            font-size: 12px;
+            color: #6d4c5b;
+            margin-bottom: 10px;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .modal-btn {
+            font-size: 12px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .modal-btn.cancel {
+            background: #fff;
+            border: 1px solid #ffc4dc;
+            color: #ad1457;
+        }
+
+        .modal-btn.confirm {
+            background: linear-gradient(135deg, #ff7aa2, #e5397a);
+            color: #fff;
+            box-shadow: 0 3px 8px rgba(229,57,122,0.4);
+        }
+
+        /* เสียง / เล็กๆ น้อยๆ */
+        audio { display: none; }
+
+        @media (max-width: 400px) {
+            .header-title { font-size: 20px; }
+            button { font-size: 12px; }
+            input, select { font-size: 12px; }
+        }
+    </style>
+</head>
+
+<body>
+<div class="app">
+    <!-- หัวใจลอย -->
+    <div class="floating-heart">💗</div>
+    <div class="floating-heart">✨</div>
+    <div class="floating-heart">🌸</div>
+
+    <header class="header">
+        <h1 class="header-title">
+            <span>🎀</span><span>Pink To-Do</span><span>🌸</span>
+        </h1>
+        <div class="header-sub">จัดตารางงานน่ารัก ๆ ของคุณเอง</div>
+        <div class="chip-today" id="todayChip">
+            📅 วันนี้: -
+        </div>
+    </header>
+
+    <!-- แถวใส่ชื่องาน + ปุ่มเพิ่ม -->
+    <div class="row row-main">
+        <input id="taskInput" type="text" placeholder="เพิ่มงานที่ต้องทำ...">
+        <button id="addBtn">เพิ่ม</button>
+    </div>
+
+    <!-- แถวเลือกวัน / ช่วงเวลา / ความสำคัญ / ไอคอน -->
+    <div class="row">
+        <select id="daySelect">
+            <option value="">วัน (ไม่ระบุ)</option>
+            <option value="จันทร์">จันทร์</option>
+            <option value="อังคาร">อังคาร</option>
+            <option value="พุธ">พุธ</option>
+            <option value="พฤหัสบดี">พฤหัสบดี</option>
+            <option value="ศุกร์">ศุกร์</option>
+        </select>
+
+        <select id="sessionSelect">
+            <option value="">เวลา (ไม่ระบุ)</option>
+            <option value="เช้า">เช้า</option>
+            <option value="บ่าย">บ่าย</option>
+        </select>
+
+        <select id="prioritySelect">
+            <option value="low">สำคัญน้อย</option>
+            <option value="high">สำคัญมาก</option>
+        </select>
+
+        <select id="iconSelect">
+            <option value="🎀">🎀 ทั่วไป</option>
+            <option value="🔥">🔥 ด่วน</option>
+            <option value="📚">📚 เรียน/งานเอกสาร</option>
+            <option value="🧹">🧹 งานบ้าน</option>
+            <option value="🌸">🌸 ส่วนตัว</option>
+            <option value="⭐">⭐ เป้าหมาย</option>
+        </select>
+    </div>
+
+    <!-- หมายเหตุ + กำหนดส่ง -->
+    <div class="row">
+        <input id="noteInput" class="note-input" type="text" placeholder="หมายเหตุ (ไม่กรอกก็ได้)...">
+        <input id="dueInput" class="due-input" type="date">
+    </div>
+
+    <div id="stats" class="stats"></div>
+
+    <!-- NAV TABS -->
+    <div class="nav-tabs">
+        <button class="nav-btn active" data-section="active">
+            <span class="icon">⏳</span><span>งานยังไม่เสร็จ</span>
+        </button>
+        <button class="nav-btn" data-section="done">
+            <span class="icon">✅</span><span>งานเสร็จแล้ว</span>
+        </button>
+        <button class="nav-btn" data-section="archive">
+            <span class="icon">📦</span><span>งานที่จัดเก็บ</span>
+        </button>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="filters">
+        <!-- Preset filters -->
+        <div class="filter-row">
+            <span class="filter-label">ลัด:</span>
+            <button class="preset-pill" data-preset="today">วันนี้</button>
+            <button class="preset-pill" data-preset="today-morning">วันนี้เช้า</button>
+            <button class="preset-pill" data-preset="today-afternoon">วันนี้บ่าย</button>
+            <button class="preset-pill" data-preset="today-high">สำคัญมากวันนี้</button>
+        </div>
+
+        <!-- Day filter -->
+        <div class="filter-row">
+            <span class="filter-label">วัน:</span>
+            <button class="pill" data-filter-day="all">ทั้งหมด</button>
+            <button class="pill" data-filter-day="จันทร์">จ</button>
+            <button class="pill" data-filter-day="อังคาร">อ</button>
+            <button class="pill" data-filter-day="พุธ">พ</button>
+            <button class="pill" data-filter-day="พฤหัสบดี">พฤ</button>
+            <button class="pill" data-filter-day="ศุกร์">ศ</button>
+        </div>
+
+        <!-- Session + Priority -->
+        <div class="filter-row">
+            <span class="filter-label">เวลา:</span>
+            <button class="pill" data-filter-session="all">ทั้งหมด</button>
+            <button class="pill" data-filter-session="เช้า">เช้า</button>
+            <button class="pill" data-filter-session="บ่าย">บ่าย</button>
+
+            <span class="filter-label" style="margin-left:6px;">สำคัญ:</span>
+            <button class="pill" data-filter-priority="all">ทั้งหมด</button>
+            <button class="pill" data-filter-priority="high">มาก</button>
+            <button class="pill" data-filter-priority="low">น้อย</button>
+        </div>
+
+        <!-- Status filter -->
+        <div class="filter-row">
+            <span class="filter-label">สถานะ:</span>
+            <button class="pill" data-filter-status="all">ทั้งหมด</button>
+            <button class="pill" data-filter-status="active">ยังไม่เสร็จ</button>
+            <button class="pill" data-filter-status="done">เสร็จแล้ว</button>
+
+            <button id="clearFiltersBtn" class="pill" style="margin-left:auto;">
+                ล้างฟิลเตอร์
+            </button>
+        </div>
+
+        <div id="filterChips" class="filter-chips"></div>
+        <div id="filterSummary" class="filter-summary-text"></div>
+    </div>
+
+    <button id="clearBtn">ลบงานทั้งหมด</button>
+
+    <div class="sections">
+        <!-- SECTION: ACTIVE -->
+        <div class="section section-active active-section">
+            <div class="section-title">
+                <span class="icon">⏳</span><span>งานที่ยังไม่เสร็จ</span>
+            </div>
+            <ul id="taskListActive"></ul>
+            <div id="emptyActive" class="empty-text" style="display:none;">ยังไม่มีงานค้างอยู่ ✨</div>
+        </div>
+
+        <!-- SECTION: DONE -->
+        <div class="section section-done">
+            <div class="section-title">
+                <span class="icon">✅</span><span>งานที่เสร็จแล้ว</span>
+            </div>
+            <ul id="taskListDone"></ul>
+            <div id="emptyDone" class="empty-text" style="display:none;">ยังไม่มีงานที่เสร็จแล้ว</div>
+        </div>
+
+        <!-- SECTION: ARCHIVE -->
+        <div class="section section-archive">
+            <div class="section-title">
+                <span class="icon">📦</span><span>งานที่จัดเก็บไว้</span>
+            </div>
+            <ul id="taskListArchived"></ul>
+            <div id="emptyArchived" class="empty-text" style="display:none;">ยังไม่มีงานที่เก็บไว้</div>
+        </div>
+    </div>
+</div>
+
+<!-- เสียง (สามารถเปลี่ยนไฟล์เป็นของตัวเองได้) -->
+<audio id="sound-add" src="https://actions.google.com/sounds/v1/cartoon/pop.ogg"></audio>
+<audio id="sound-complete" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"></audio>
+<audio id="sound-delete" src="https://actions.google.com/sounds/v1/cartoon/clang.ogg"></audio>
+
+<!-- popup ยืนยันลบ -->
+<div id="deleteModal" class="modal-backdrop">
+    <div class="modal">
+        <div class="modal-title">ลบงานนี้ไหม? 💔</div>
+        <div class="modal-message" id="deleteModalMessage">
+            คุณต้องการลบงานนี้จริง ๆ ใช่ไหม
+        </div>
+        <div class="modal-actions">
+            <button class="modal-btn cancel" id="deleteCancelBtn">ยกเลิก</button>
+            <button class="modal-btn confirm" id="deleteConfirmBtn">ลบเลย</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // ---------- DATA & STATE ----------
+    let todos = JSON.parse(localStorage.getItem("todos_v8") || "[]");
+    let filters = JSON.parse(localStorage.getItem("todo_filters_v1") || "null");
+    if (!filters) {
+        filters = { day: "all", session: "all", priority: "all", status: "all" };
+    }
+
+    const input = document.getElementById("taskInput");
+    const noteInput = document.getElementById("noteInput");
+    const dueInput = document.getElementById("dueInput");
+    const daySelect = document.getElementById("daySelect");
+    const sessionSelect = document.getElementById("sessionSelect");
+    const prioritySelect = document.getElementById("prioritySelect");
+    const iconSelect = document.getElementById("iconSelect");
+
+    const listActive = document.getElementById("taskListActive");
+    const listDone = document.getElementById("taskListDone");
+    const listArchived = document.getElementById("taskListArchived");
+
+    const statsDiv = document.getElementById("stats");
+    const emptyActive = document.getElementById("emptyActive");
+    const emptyDone = document.getElementById("emptyDone");
+    const emptyArchived = document.getElementById("emptyArchived");
+    const todayChip = document.getElementById("todayChip");
+    const filterChips = document.getElementById("filterChips");
+    const filterSummary = document.getElementById("filterSummary");
+    const clearFiltersBtn = document.getElementById("clearFiltersBtn");
+
+    const navBtns = document.querySelectorAll(".nav-btn");
+    const sectionActive = document.querySelector(".section-active");
+    const sectionDone = document.querySelector(".section-done");
+    const sectionArchive = document.querySelector(".section-archive");
+
+    // เสียง
+    const soundAdd = document.getElementById("sound-add");
+    const soundComplete = document.getElementById("sound-complete");
+    const soundDelete = document.getElementById("sound-delete");
+
+    function playSound(audio) {
+        try {
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play();
+            }
+        } catch (e) {
+            // ถ้าเบราว์เซอร์บล็อกเสียงไม่เป็นไร
+        }
+    }
+
+    // popup delete
+    const deleteModal = document.getElementById("deleteModal");
+    const deleteCancelBtn = document.getElementById("deleteCancelBtn");
+    const deleteConfirmBtn = document.getElementById("deleteConfirmBtn");
+    const deleteModalMessage = document.getElementById("deleteModalMessage");
+    let deleteTargetIndex = null;
+
+    function openDeleteModal(index, text) {
+        deleteTargetIndex = index;
+        deleteModalMessage.textContent = `คุณต้องการลบงานนี้จริง ๆ ใช่ไหม: "${text}"`;
+        deleteModal.classList.add("show");
+    }
+
+    function closeDeleteModal() {
+        deleteModal.classList.remove("show");
+        deleteTargetIndex = null;
+    }
+
+    deleteCancelBtn.onclick = closeDeleteModal;
+    deleteModal.onclick = (e) => {
+        if (e.target === deleteModal) {
+            closeDeleteModal();
+        }
+    };
+
+    deleteConfirmBtn.onclick = () => {
+        if (deleteTargetIndex !== null && todos[deleteTargetIndex]) {
+            todos.splice(deleteTargetIndex, 1);
+            saveTodos();
+            playSound(soundDelete);
+            closeDeleteModal();
+            render();
+        }
+    };
+
+    function saveTodos() {
+        localStorage.setItem("todos_v8", JSON.stringify(todos));
+    }
+
+    function saveFilters() {
+        localStorage.setItem("todo_filters_v1", JSON.stringify(filters));
+    }
+
+    function getTodayInfo() {
+        const now = new Date();
+        const dayIndex = now.getDay(); // 0=อาทิตย์
+        let dayName = "";
+        if (dayIndex === 1) dayName = "จันทร์";
+        else if (dayIndex === 2) dayName = "อังคาร";
+        else if (dayIndex === 3) dayName = "พุธ";
+        else if (dayIndex === 4) dayName = "พฤหัสบดี";
+        else if (dayIndex === 5) dayName = "ศุกร์";
+        const hour = now.getHours();
+        const session = hour < 12 ? "เช้า" : "บ่าย";
+        return { day: dayName, session: session };
+    }
+
+    function getTodayDateStr() {
+        const d = new Date();
+        return d.toISOString().slice(0, 10); // yyyy-mm-dd
+    }
+
+    const todayInfo = getTodayInfo();
+    if (todayInfo.day) {
+        todayChip.textContent = `📅 วันนี้: ${todayInfo.day} ช่วง${todayInfo.session}`;
+    } else {
+        todayChip.textContent = "📅 วันนี้: เสาร์/อาทิตย์ (ไม่มีในตาราง จ–ศ)";
+    }
+
+    function updateStats() {
+        const total = todos.length;
+        const active = todos.filter(t => !t.done && !t.archived).length;
+        const done = todos.filter(t => t.done && !t.archived).length;
+        const archived = todos.filter(t => t.archived).length;
+        const highActive = todos.filter(t => !t.done && !t.archived && t.priority === "high").length;
+        const todayStr = getTodayDateStr();
+        const overdue = todos.filter(t => !t.done && !t.archived && t.dueDate && t.dueDate < todayStr).length;
+
+        statsDiv.innerHTML =
+            `<span><strong>${total}</strong> งานทั้งหมด</span> · ` +
+            `<span>ค้างอยู่ <strong>${active}</strong></span> · ` +
+            `<span>เสร็จแล้ว <strong>${done}</strong></span> · ` +
+            `<span>เก็บไว้ <strong>${archived}</strong></span> · ` +
+            `<span>สำคัญมากค้างอยู่ <strong>${highActive}</strong></span> · ` +
+            `<span>ค้างเกินกำหนด <strong>${overdue}</strong></span>`;
+    }
+
+    // ---------- FILTERS ----------
+    function applyFiltersToList(baseList) {
+        return baseList.filter(item => {
+            if (filters.day !== "all" && item.day !== filters.day) return false;
+            if (filters.session !== "all" && item.session !== filters.session) return false;
+            if (filters.priority !== "all" && item.priority !== filters.priority) return false;
+            if (filters.status === "active" && item.done) return false;
+            if (filters.status === "done" && !item.done) return false;
+            return true;
+        });
+    }
+
+    function dayOrderValue(day) {
+        const orderMap = { "จันทร์":0, "อังคาร":1, "พุธ":2, "พฤหัสบดี":3, "ศุกร์":4 };
+        if (!day || !(day in orderMap)) return 5;
+        return orderMap[day];
+    }
+
+    function sortTasks(list) {
+        return list.slice().sort((a, b) => {
+            if ((b.favorite ? 1 : 0) !== (a.favorite ? 1 : 0)) {
+                return (b.favorite ? 1 : 0) - (a.favorite ? 1 : 0);
+            }
+            const da = dayOrderValue(a.day);
+            const db = dayOrderValue(b.day);
+            if (da !== db) return da - db;
+            return 0;
+        });
+    }
+
+    function updateFilterPillsUI() {
+        document.querySelectorAll("[data-filter-day]").forEach(btn => {
+            btn.classList.toggle("selected", btn.dataset.filterDay === filters.day ||
+                (filters.day === "all" && btn.dataset.filterDay === "all"));
+        });
+        document.querySelectorAll("[data-filter-session]").forEach(btn => {
+            btn.classList.toggle("selected", btn.dataset.filterSession === filters.session ||
+                (filters.session === "all" && btn.dataset.filterSession === "all"));
+        });
+        document.querySelectorAll("[data-filter-priority]").forEach(btn => {
+            btn.classList.toggle("selected", btn.dataset.filterPriority === filters.priority ||
+                (filters.priority === "all" && btn.dataset.filterPriority === "all"));
+        });
+        document.querySelectorAll("[data-filter-status]").forEach(btn => {
+            btn.classList.toggle("selected", btn.dataset.filterStatus === filters.status ||
+                (filters.status === "all" && btn.dataset.filterStatus === "all"));
+        });
+    }
+
+    function updateFilterChipsAndSummary(filteredCount) {
+        filterChips.innerHTML = "";
+        const chips = [];
+        if (filters.day !== "all") chips.push({ key: "day", label: "วัน: " + filters.day });
+        if (filters.session !== "all") chips.push({ key: "session", label: "เวลา: " + filters.session });
+        if (filters.priority !== "all") {
+            const t = filters.priority === "high" ? "สำคัญมาก" : "สำคัญน้อย";
+            chips.push({ key: "priority", label: "สำคัญ: " + t });
+        }
+        if (filters.status !== "all") {
+            let t = "ทั้งหมด";
+            if (filters.status === "active") t = "ยังไม่เสร็จ";
+            else if (filters.status === "done") t = "เสร็จแล้ว";
+            chips.push({ key: "status", label: "สถานะ: " + t });
+        }
+
+        chips.forEach(ch => {
+            const chip = document.createElement("div");
+            chip.className = "filter-chip";
+            chip.textContent = ch.label + " ";
+            const btn = document.createElement("button");
+            btn.textContent = "✕";
+            btn.onclick = () => {
+                filters[ch.key] = "all";
+                saveFilters();
+                render();
+            };
+            chip.appendChild(btn);
+            filterChips.appendChild(chip);
+        });
+
+        if (chips.length === 0) {
+            filterSummary.textContent = `ไม่ได้ใช้ฟิลเตอร์ใด ๆ · พบงานทั้งหมด ${filteredCount} รายการ (ไม่รวมที่เก็บไว้)`;
+        } else {
+            filterSummary.textContent = `กำลังใช้ฟิลเตอร์ ${chips.length} ตัว · พบงานตามตัวกรอง ${filteredCount} รายการ`;
+        }
+    }
+
+    // ---------- NAV ----------
+    function showSection(name) {
+        sectionActive.classList.remove("active-section");
+        sectionDone.classList.remove("active-section");
+        sectionArchive.classList.remove("active-section");
+
+        if (name === "active") sectionActive.classList.add("active-section");
+        if (name === "done") sectionDone.classList.add("active-section");
+        if (name === "archive") sectionArchive.classList.add("active-section");
+
+        navBtns.forEach(btn => {
+            btn.classList.toggle("active", btn.dataset.section === name);
+        });
+    }
+
+    navBtns.forEach(btn => {
+        btn.onclick = () => showSection(btn.dataset.section);
+    });
+
+    // ---------- RENDER ----------
+    function render() {
+        listActive.innerHTML = "";
+        listDone.innerHTML = "";
+        listArchived.innerHTML = "";
+
+        const nonArchived = todos.filter(t => !t.archived);
+        const archived = todos.filter(t => t.archived);
+
+        const filtered = applyFiltersToList(nonArchived);
+        const sortedFiltered = sortTasks(filtered);
+
+        const activeList = sortedFiltered.filter(t => !t.done);
+        const doneList = sortedFiltered.filter(t => t.done);
+
+        const todayStr = getTodayDateStr();
+
+        function renderListWithDayDividers(list, ulElement) {
+            ulElement.innerHTML = "";
+            let lastDayKey = "__INIT__";
+
+            list.forEach(item => {
+                const dayKey = item.day || "ไม่ระบุวัน";
+                if (dayKey !== lastDayKey) {
+                    const div = document.createElement("div");
+                    div.className = "day-divider";
+                    div.textContent = dayKey === "ไม่ระบุวัน" ? "ไม่ระบุวัน" : "วัน" + dayKey;
+                    ulElement.appendChild(div);
+                    lastDayKey = dayKey;
+                }
+
+                const li = document.createElement("li");
+                if (item.priority === "high") li.classList.add("high-priority");
+                if (!item.done &&
+                    item.day &&
+                    item.session &&
+                    item.day === todayInfo.day &&
+                    item.session === todayInfo.session) {
+                    li.classList.add("focus-task");
+                }
+
+                if (!item.done && item.dueDate && item.dueDate < todayStr) {
+                    li.classList.add("overdue");
+                }
+
+                const content = document.createElement("div");
+                content.className = "task-content";
+
+                const headerLine = document.createElement("div");
+                headerLine.className = "task-header-line";
+
+                const iconSpan = document.createElement("span");
+                iconSpan.className = "task-icon";
+                iconSpan.textContent = item.icon || "🎀";
+
+                const textSpan = document.createElement("span");
+                textSpan.className = "task-text";
+                textSpan.textContent = item.text;
+                if (item.done) textSpan.classList.add("done");
+                textSpan.onclick = () => {
+                    item.done = !item.done;
+                    saveTodos();
+                    playSound(soundComplete);
+                    render();
+                };
+
+                const favSpan = document.createElement("span");
+                favSpan.className = "fav-star" + (item.favorite ? " active" : "");
+                favSpan.textContent = "★";
+                favSpan.title = "ติดดาว/เอาดาวออก";
+                favSpan.onclick = () => {
+                    item.favorite = !item.favorite;
+                    saveTodos();
+                    render();
+                };
+
+                headerLine.appendChild(iconSpan);
+                headerLine.appendChild(textSpan);
+                headerLine.appendChild(favSpan);
+                content.appendChild(headerLine);
+
+                if (item.note && item.note.trim() !== "") {
+                    const noteSpan = document.createElement("div");
+                    noteSpan.className = "note-text";
+                    noteSpan.textContent = "โน้ต: " + item.note;
+                    if (item.done) noteSpan.classList.add("done");
+                    content.appendChild(noteSpan);
+                }
+
+                if (item.dueDate) {
+                    const dueSpan = document.createElement("div");
+                    dueSpan.className = "due-text";
+                    dueSpan.textContent = "กำหนดส่ง: " + item.dueDate;
+                    if (item.done) dueSpan.classList.add("done");
+                    content.appendChild(dueSpan);
+                }
+
+                const tags = document.createElement("div");
+                tags.className = "tags";
+
+                if (item.day) {
+                    const tagDay = document.createElement("span");
+                    tagDay.className = "tag tag-day";
+                    tagDay.textContent = item.day;
+                    tags.appendChild(tagDay);
+                }
+                if (item.session) {
+                    const tagSession = document.createElement("span");
+                    tagSession.className = "tag tag-session";
+                    tagSession.textContent = item.session;
+                    tags.appendChild(tagSession);
+                }
+                const tagPriority = document.createElement("span");
+                tagPriority.className =
+                    "tag " + (item.priority === "high" ? "tag-priority-high" : "tag-priority-low");
+                tagPriority.textContent =
+                    item.priority === "high" ? "สำคัญมาก" : "สำคัญน้อย";
+                tags.appendChild(tagPriority);
+
+                if (item.dueDate) {
+                    const tagDue = document.createElement("span");
+                    tagDue.className = "tag tag-due";
+                    tagDue.textContent = "กำหนดส่ง";
+                    tags.appendChild(tagDue);
+                }
+
+                content.appendChild(tags);
+
+                const btnGroup = document.createElement("div");
+                btnGroup.className = "btn-group-right";
+
+                const archiveBtn = document.createElement("button");
+                archiveBtn.className = "archiveBtn";
+                archiveBtn.textContent = "เก็บไว้";
+                archiveBtn.onclick = () => {
+                    item.archived = true;
+                    saveTodos();
+                    render();
+                };
+                btnGroup.appendChild(archiveBtn);
+
+                const deleteBtn = document.createElement("button");
+                deleteBtn.className = "deleteBtn";
+                deleteBtn.textContent = "ลบ";
+                deleteBtn.onclick = () => {
+                    const idx = todos.indexOf(item);
+                    if (idx !== -1) {
+                        openDeleteModal(idx, item.text);
+                    }
+                };
+                btnGroup.appendChild(deleteBtn);
+
+                li.appendChild(content);
+                li.appendChild(btnGroup);
+                ulElement.appendChild(li);
+            });
+        }
+
+        renderListWithDayDividers(activeList, listActive);
+        renderListWithDayDividers(doneList, listDone);
+
+        // archived (ไม่ใช้ filter)
+        archived.forEach(item => {
+            const li = document.createElement("li");
+            if (item.priority === "high") li.classList.add("high-priority");
+
+            const content = document.createElement("div");
+            content.className = "task-content";
+
+            const headerLine = document.createElement("div");
+            headerLine.className = "task-header-line";
+
+            const iconSpan = document.createElement("span");
+            iconSpan.className = "task-icon";
+            iconSpan.textContent = item.icon || "🎀";
+
+            const textSpan = document.createElement("span");
+            textSpan.className = "task-text";
+            textSpan.textContent = item.text;
+            if (item.done) textSpan.classList.add("done");
+
+            const favSpan = document.createElement("span");
+            favSpan.className = "fav-star" + (item.favorite ? " active" : "");
+            favSpan.textContent = "★";
+            favSpan.onclick = () => {
+                item.favorite = !item.favorite;
+                saveTodos();
+                render();
+            };
+
+            headerLine.appendChild(iconSpan);
+            headerLine.appendChild(textSpan);
+            headerLine.appendChild(favSpan);
+            content.appendChild(headerLine);
+
+            if (item.note && item.note.trim() !== "") {
+                const noteSpan = document.createElement("div");
+                noteSpan.className = "note-text";
+                noteSpan.textContent = "โน้ต: " + item.note;
+                if (item.done) noteSpan.classList.add("done");
+                content.appendChild(noteSpan);
+            }
+
+            if (item.dueDate) {
+                const dueSpan = document.createElement("div");
+                dueSpan.className = "due-text";
+                dueSpan.textContent = "กำหนดส่ง: " + item.dueDate;
+                if (item.done) dueSpan.classList.add("done");
+                content.appendChild(dueSpan);
+            }
+
+            const tags = document.createElement("div");
+            tags.className = "tags";
+            if (item.day) {
+                const tagDay = document.createElement("span");
+                tagDay.className = "tag tag-day";
+                tagDay.textContent = item.day;
+                tags.appendChild(tagDay);
+            }
+            if (item.session) {
+                const tagSession = document.createElement("span");
+                tagSession.className = "tag tag-session";
+                tagSession.textContent = item.session;
+                tags.appendChild(tagSession);
+            }
+            const tagPriority = document.createElement("span");
+            tagPriority.className =
+                "tag " + (item.priority === "high" ? "tag-priority-high" : "tag-priority-low");
+            tagPriority.textContent =
+                item.priority === "high" ? "สำคัญมาก" : "สำคัญน้อย";
+            tags.appendChild(tagPriority);
+            if (item.dueDate) {
+                const tagDue = document.createElement("span");
+                tagDue.className = "tag tag-due";
+                tagDue.textContent = "กำหนดส่ง";
+                tags.appendChild(tagDue);
+            }
+            content.appendChild(tags);
+
+            const btnGroup = document.createElement("div");
+            btnGroup.className = "btn-group-right";
+
+            const restoreBtn = document.createElement("button");
+            restoreBtn.className = "restoreBtn";
+            restoreBtn.textContent = "กู้คืน";
+            restoreBtn.onclick = () => {
+                item.archived = false;
+                saveTodos();
+                render();
+            };
+            btnGroup.appendChild(restoreBtn);
+
+            const deleteBtn = document.createElement("button");
+            deleteBtn.className = "deleteBtn";
+            deleteBtn.textContent = "ลบ";
+            deleteBtn.onclick = () => {
+                const idx = todos.indexOf(item);
+                if (idx !== -1) {
+                    openDeleteModal(idx, item.text);
+                }
+            };
+            btnGroup.appendChild(deleteBtn);
+
+            li.appendChild(content);
+            li.appendChild(btnGroup);
+            listArchived.appendChild(li);
+        });
+
+        emptyActive.style.display = activeList.length === 0 ? "block" : "none";
+        emptyDone.style.display = doneList.length === 0 ? "block" : "none";
+        emptyArchived.style.display = archived.length === 0 ? "block" : "none";
+
+        updateStats();
+        updateFilterPillsUI();
+        updateFilterChipsAndSummary(sortedFiltered.length);
+    }
+
+    // ---------- ADD TASK ----------
+    function addTask() {
+        const text = input.value.trim();
+        const note = noteInput.value.trim();
+        const dueDate = dueInput.value || "";
+
+        if (!text) return;
+
+        const day = daySelect.value;
+        const session = sessionSelect.value;
+        const priority = prioritySelect.value || "low";
+        const icon = iconSelect.value || "🎀";
+
+        todos.push({
+            text,
+            note,
+            icon,
+            day,
+            session,
+            priority,
+            dueDate,
+            done: false,
+            favorite: false,
+            archived: false
+        });
+
+        input.value = "";
+        noteInput.value = "";
+        dueInput.value = "";
+        saveTodos();
+        playSound(soundAdd);
+        render();
+    }
+
+    document.getElementById("addBtn").onclick = addTask;
+    input.addEventListener("keydown", e => {
+        if (e.key === "Enter") addTask();
+    });
+
+    document.getElementById("clearBtn").onclick = () => {
+        const confirmText = prompt('ถ้าต้องการลบงานทั้งหมด พิมพ์คำว่า "ลบ" แล้วกด OK:');
+        if (confirmText === "ลบ") {
+            todos = [];
+            saveTodos();
+            playSound(soundDelete);
+            render();
+            alert("ลบงานทั้งหมดแล้ว");
+        } else if (confirmText !== null) {
+            alert("ยกเลิกการลบ");
+        }
+    };
+
+    // FILTER EVENTS
+    document.querySelectorAll("[data-filter-day]").forEach(btn => {
+        btn.onclick = () => {
+            filters.day = btn.dataset.filterDay;
+            saveFilters();
+            render();
+        };
+    });
+
+    document.querySelectorAll("[data-filter-session]").forEach(btn => {
+        btn.onclick = () => {
+            filters.session = btn.dataset.filterSession;
+            saveFilters();
+            render();
+        };
+    });
+
+    document.querySelectorAll("[data-filter-priority]").forEach(btn => {
+        btn.onclick = () => {
+            filters.priority = btn.dataset.filterPriority;
+            saveFilters();
+            render();
+        };
+    });
+
+    document.querySelectorAll("[data-filter-status]").forEach(btn => {
+        btn.onclick = () => {
+            filters.status = btn.dataset.filterStatus;
+            saveFilters();
+            render();
+        };
+    });
+
+    clearFiltersBtn.onclick = () => {
+        filters = { day: "all", session: "all", priority: "all", status: "all" };
+        saveFilters();
+        render();
+    };
+
+    document.querySelectorAll("[data-preset]").forEach(btn => {
+        btn.onclick = () => {
+            if (!todayInfo.day) {
+                alert("วันนี้ไม่ใช่วันจันทร์–ศุกร์ เลยใช้ preset วันนี้ได้ไม่เต็มนะ");
+            }
+            const preset = btn.dataset.preset;
+            filters.status = "active";
+
+            if (preset === "today") {
+                if (todayInfo.day) filters.day = todayInfo.day;
+                filters.session = "all";
+                filters.priority = "all";
+            } else if (preset === "today-morning") {
+                if (todayInfo.day) filters.day = todayInfo.day;
+                filters.session = "เช้า";
+                filters.priority = "all";
+            } else if (preset === "today-afternoon") {
+                if (todayInfo.day) filters.day = todayInfo.day;
+                filters.session = "บ่าย";
+                filters.priority = "all";
+            } else if (preset === "today-high") {
+                if (todayInfo.day) filters.day = todayInfo.day;
+                filters.session = "all";
+                filters.priority = "high";
+            }
+            saveFilters();
+            render();
+        };
+    });
+
+    // INIT
+    showSection("active"); // หน้าแรก = งานยังไม่เสร็จ
     render();
 </script>
 </body>
